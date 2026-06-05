@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+publish
+Website-PM.docx
+.env
+.env.local
+.vercel
+*.log
+tsconfig.tsbuildinfo
