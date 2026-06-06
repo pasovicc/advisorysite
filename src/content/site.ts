@@ -70,17 +70,17 @@ export type RoutePage = {
 };
 
 export const siteConfig = {
-  name: "Jasna Executive Advisory",
-  shortName: "Jasna Advisory",
+  name: "Advisory Site",
+  shortName: "Advisory Site",
   tagline: "AI, Digital Transformation & Project Leadership",
   description:
     "Executive advisory, governance and education services for banks, institutions and modern organizations.",
-  email: "contact@jasna-advisory.com",
+  email: "contact@advisory-site.example",
   phone: "+387 00 000 000",
   location: "Sarajevo, Bosnia and Herzegovina",
   bookingUrl:
     process.env.NEXT_PUBLIC_CALENDLY_URL ||
-    "https://calendly.com/jasna/consultation",
+    "https://calendly.com/advisory-site/consultation",
   seoKeywords: [
     "AI governance Balkans",
     "DORA consulting",
@@ -198,7 +198,7 @@ export const homeContent = {
     }
   ],
   assistant: {
-    title: "Ask Jasna AI",
+    title: "Chatbot",
     subtitle:
       "A premium AI advisor for clear first answers on project management, AI governance, DORA readiness and digital transformation.",
     examples: [
@@ -210,7 +210,7 @@ export const homeContent = {
       "Which education path should we choose?",
       "Is our organization ready for consulting support?"
     ],
-    cta: { label: "Try AI Assistant", href: "/ai-advisor" }
+    cta: { label: "Try Chatbot", href: "/ai-advisor" }
   },
   consultation: {
     eyebrow: "Book a Consultation",
@@ -486,10 +486,10 @@ const aboutPages: RoutePage[] = [
       "Biography, leadership background, education, certifications, speaking and publication focus.",
     keywords: ["AI governance advisor", "project management professional", "banking IT leadership"],
     hero: {
-      eyebrow: "About Jasna",
+      eyebrow: "About Advisory Site",
       title: "A leadership profile across AI, governance, project delivery and education.",
       text:
-        "Jasna is an experienced IT executive, project management professional and AI governance advisor with more than 25 years of experience in IT leadership, digital transformation and organizational development."
+        "The advisory practice is led by an experienced IT executive, project management professional and AI governance advisor with more than 25 years of experience in IT leadership, digital transformation and organizational development."
     },
     sections: [
       {
@@ -526,19 +526,19 @@ const aboutPages: RoutePage[] = [
   {
     slug: "about/biography",
     title: "Biography",
-    description: "Professional biography for Jasna Executive Advisory.",
-    keywords: ["Jasna biography", "AI governance advisor", "project leadership"],
+    description: "Professional biography for Advisory Site.",
+    keywords: ["Advisory Site biography", "AI governance advisor", "project leadership"],
     hero: {
       eyebrow: "Biography",
       title: "Executive experience with a rare cross-section of AI, banking IT and delivery leadership.",
       text:
-        "Jasna works at the intersection of strategy, governance, technology and education."
+        "The practice works at the intersection of strategy, governance, technology and education."
     },
     sections: [
       {
         title: "Professional Profile",
         body: [
-          "With more than 25 years in IT leadership and organizational development, Jasna supports leaders who need clarity before, during and after transformation.",
+          "With more than 25 years in IT leadership and organizational development, the practice supports leaders who need clarity before, during and after transformation.",
           "Her work links strategic intent with governance, people, delivery structures and education."
         ]
       }
@@ -754,13 +754,13 @@ const aiAdvisorPages: RoutePage[] = [
   {
     slug: "ai-advisor",
     title: "AI Advisor",
-    description: "Ask Jasna AI about project management, AI governance, DORA and transformation.",
-    keywords: ["Ask Jasna AI", "AI governance advisor", "project management questions"],
+    description: "Ask Chatbot about project management, AI governance, DORA and transformation.",
+    keywords: ["Chatbot", "AI governance advisor", "project management questions"],
     hero: {
-      eyebrow: "Ask Jasna AI",
+      eyebrow: "Chatbot",
       title: "A premium AI advisor for practical first answers.",
       text:
-        "Use Ask Jasna AI to explore project management, PMO, AI governance, DORA readiness and digital transformation basics."
+        "Use Chatbot to explore project management, PMO, AI governance, DORA readiness and digital transformation basics."
     },
     showAssistant: true,
     sections: [
@@ -780,11 +780,11 @@ const aiAdvisorPages: RoutePage[] = [
   },
   {
     slug: "ai-advisor/ask",
-    title: "Ask the AI Assistant",
+    title: "Ask Chatbot",
     description: "Ask simple questions about PM, AI governance and digital transformation.",
     keywords: ["AI assistant", "project management assistant", "AI governance questions"],
     hero: {
-      eyebrow: "Ask the AI Assistant",
+      eyebrow: "Ask Chatbot",
       title: "Ask a focused question and get a concise educational answer.",
       text:
         "The assistant handles first-level questions and points you toward a consultation when the topic needs context."
@@ -977,8 +977,8 @@ export const routePages: RoutePage[] = [
   {
     slug: "contact",
     title: "Contact",
-    description: "Contact Jasna Executive Advisory.",
-    keywords: ["contact Jasna", "executive advisory", "PM consulting Bosnia"],
+    description: "Contact Advisory Site.",
+    keywords: ["contact Advisory Site", "executive advisory", "PM consulting Bosnia"],
     hero: {
       eyebrow: "Contact",
       title: "For consulting, workshops, speaking and advisory inquiries.",

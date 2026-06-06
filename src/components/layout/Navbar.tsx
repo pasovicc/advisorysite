@@ -11,9 +11,13 @@ type NavbarProps = {
   navigation: NavItem[];
   siteName: string;
   bookingHref: string;
+  user: {
+    email: string;
+    name: string;
+  } | null;
 };
 
-export function Navbar({ navigation, siteName, bookingHref }: NavbarProps) {
+export function Navbar({ navigation, siteName, bookingHref, user }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -96,7 +100,7 @@ export function Navbar({ navigation, siteName, bookingHref }: NavbarProps) {
         <div className="container-shell flex h-[72px] items-center justify-between">
           <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
             <span className="grid h-10 w-10 place-items-center rounded-lg border border-gold/[0.35] bg-white/[0.95] font-display text-2xl text-navy shadow-sm">
-              J
+              A
             </span>
             <span className="leading-tight">
               <span
@@ -169,6 +173,42 @@ export function Navbar({ navigation, siteName, bookingHref }: NavbarProps) {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
+            {user ? (
+              <Link
+                href="/account"
+                className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gold/60 ${
+                  glass
+                    ? "border-white/40 bg-white/95 text-navy hover:bg-gold"
+                    : "border-slate-200 bg-white text-navy hover:border-gold/70"
+                }`}
+              >
+                <Icon name="UserRound" className="h-4 w-4" />
+                Account
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold transition ${
+                    glass ? "text-slate-200 hover:text-white" : "text-graphite hover:text-navy"
+                  }`}
+                >
+                  <Icon name="LogIn" className="h-4 w-4" />
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gold/60 ${
+                    glass
+                      ? "border-white/40 bg-white/95 text-navy hover:bg-gold"
+                      : "border-slate-200 bg-white text-navy hover:border-gold/70"
+                  }`}
+                >
+                  <Icon name="UserPlus" className="h-4 w-4" />
+                  Sign Up
+                </Link>
+              </>
+            )}
             <Link
               href={bookingHref}
               className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gold/60 ${
@@ -194,6 +234,7 @@ export function Navbar({ navigation, siteName, bookingHref }: NavbarProps) {
         </div>
       </header>
       <MobileMenu
+        user={user}
         open={open}
         navigation={navigation}
         siteName={siteName}

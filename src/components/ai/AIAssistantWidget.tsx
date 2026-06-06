@@ -17,7 +17,7 @@ type AIAssistantWidgetProps = {
 
 const initialMessage: Message = {
   role: "assistant",
-  content: "Hi, I am Jasna AI. Ask me about PMO, AI governance, DORA or digital transformation."
+  content: "Hi, I am Chatbot. Ask me about PMO, AI governance, DORA or digital transformation."
 };
 
 export function AIAssistantWidget({
@@ -103,7 +103,7 @@ export function AIAssistantWidget({
           <div className="flex items-center gap-3">
             <AssistantAvatar />
             <div>
-              <p className="text-sm font-extrabold">Jasna AI</p>
+              <p className="text-sm font-extrabold">Chatbot</p>
               <p className="text-xs text-slate-300">Project / Governance / Transformation</p>
             </div>
           </div>
@@ -111,7 +111,7 @@ export function AIAssistantWidget({
             type="button"
             onClick={() => setOpen(false)}
             className="grid h-8 w-8 place-items-center rounded-md text-slate-200 transition hover:bg-white/10 hover:text-white"
-            aria-label="Minimize Jasna AI"
+            aria-label="Minimize Chatbot"
           >
             <Icon name="X" className="h-4 w-4" />
           </button>
@@ -190,10 +190,10 @@ export function AIAssistantWidget({
         onClick={() => setOpen((value) => !value)}
         className="absolute bottom-0 right-0 z-20 flex items-center gap-3 rounded-full border border-white/40 bg-white px-3 py-3 text-left text-navy shadow-[0_18px_48px_rgba(15,23,42,0.28)] transition duration-300 hover:-translate-y-1 hover:border-gold/70 hover:shadow-[0_22px_58px_rgba(15,23,42,0.34)]"
         aria-expanded={open}
-        aria-label={open ? "Close Jasna AI" : "Open Jasna AI"}
+        aria-label={open ? "Close Chatbot" : "Open Chatbot"}
       >
         <AssistantAvatar />
-        <span className="hidden pr-2 text-sm font-extrabold sm:block">Jasna AI</span>
+        <span className="hidden pr-2 text-sm font-extrabold sm:block">Chatbot</span>
       </button>
     </div>
   );

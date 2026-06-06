@@ -10,10 +10,14 @@ type MobileMenuProps = {
   navigation: NavItem[];
   siteName: string;
   bookingHref: string;
+  user: {
+    email: string;
+    name: string;
+  } | null;
   onClose: () => void;
 };
 
-export function MobileMenu({ open, navigation, siteName, bookingHref, onClose }: MobileMenuProps) {
+export function MobileMenu({ open, navigation, siteName, bookingHref, user, onClose }: MobileMenuProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
@@ -51,7 +55,7 @@ export function MobileMenu({ open, navigation, siteName, bookingHref, onClose }:
       <div className="mobile-menu-panel">
         <div className="mobile-menu-topbar">
           <Link href="/" className="mobile-menu-brand" onClick={onClose}>
-            <span className="mobile-menu-logo">J</span>
+            <span className="mobile-menu-logo">A</span>
             <span className="mobile-menu-brand-text">
               <span>{siteName}</span>
               <span>Executive Consulting</span>
@@ -123,6 +127,24 @@ export function MobileMenu({ open, navigation, siteName, bookingHref, onClose }:
               <Icon name="Calendar" className="h-4 w-4" />
               Book a Consultation
             </Link>
+
+            {user ? (
+              <Link href="/account" onClick={onClose} className="mobile-menu-book">
+                <Icon name="UserRound" className="h-4 w-4" />
+                Account
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" onClick={onClose} className="mobile-menu-link">
+                  <span>Login</span>
+                  <Icon name="LogIn" className="h-4 w-4" />
+                </Link>
+                <Link href="/signup" onClick={onClose} className="mobile-menu-book">
+                  <Icon name="UserPlus" className="h-4 w-4" />
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </div>
