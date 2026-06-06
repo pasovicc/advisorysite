@@ -1,4 +1,4 @@
-# Jasna Executive Advisory
+# Executive Advisory
 
 Premium Next.js website for an executive consulting brand focused on AI governance, digital transformation, project management, IT governance, banking IT and education.
 
