@@ -8,12 +8,12 @@ type FooterProps = {
 };
 
 export function Footer({ navigation, site }: FooterProps) {
-  const primaryGroups = navigation.filter((item) => item.children).slice(0, 4);
+  const quickLinks = navigation.filter((item) => !item.children);
 
   return (
     <footer className="border-t border-slate-200 bg-white">
-      <div className="container-shell grid gap-10 py-14 lg:grid-cols-[1.2fr_2fr]">
-        <div>
+      <div className="container-shell py-14">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <Link href="/" className="inline-flex items-center gap-3">
             <span className="grid h-11 w-11 place-items-center rounded-lg border border-gold/35 bg-porcelain font-display text-2xl text-navy">
               J
@@ -27,8 +27,23 @@ export function Footer({ navigation, site }: FooterProps) {
               </span>
             </span>
           </Link>
-          <p className="mt-6 max-w-md text-sm leading-7 text-graphite">{site.description}</p>
-          <div className="mt-6 grid gap-3 text-sm text-graphite">
+
+          <div className="flex flex-wrap gap-3 lg:justify-end">
+            {quickLinks.map((item) => (
+              <Link
+                href={item.href}
+                key={item.href}
+                className="rounded-lg border border-slate-200 bg-porcelain px-4 py-2 text-sm font-extrabold text-navy transition hover:border-gold/60 hover:bg-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-8 rounded-lg border border-slate-200 bg-porcelain p-6 md:grid-cols-[1fr_0.9fr] md:items-center">
+          <p className="max-w-2xl text-sm leading-7 text-graphite">{site.description}</p>
+          <div className="grid gap-3 text-sm text-graphite md:justify-end">
             <a className="inline-flex items-center gap-2 hover:text-navy" href={`mailto:${site.email}`}>
               <Icon name="Mail" className="h-4 w-4 text-gold" />
               {site.email}
@@ -38,26 +53,6 @@ export function Footer({ navigation, site }: FooterProps) {
               {site.location}
             </span>
           </div>
-        </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {primaryGroups.map((group) => (
-            <div key={group.href}>
-              <Link href={group.href} className="text-sm font-extrabold uppercase tracking-[0.16em] text-navy">
-                {group.label}
-              </Link>
-              <div className="mt-4 grid gap-2">
-                {group.children?.slice(0, 5).map((child) => (
-                  <Link
-                    href={child.href}
-                    key={child.href}
-                    className="text-sm leading-6 text-graphite transition hover:text-navy"
-                  >
-                    {child.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
         </div>
       </div>
       <div className="border-t border-slate-200 py-5">

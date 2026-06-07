@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
@@ -72,7 +75,7 @@ export function HeroSection({ content, trustItems }: HeroSectionProps) {
           <ExecutiveFrameworkPages />
         </div>
 
-        <div className="max-w-[1180px]">
+        <div className="mx-auto w-full max-w-[1180px]">
           <TrustBar items={trustItems} variant="hero" />
         </div>
       </div>
@@ -105,6 +108,10 @@ const frameworkPages = [
 ];
 
 function ExecutiveFrameworkPages() {
+  const [activePage, setActivePage] = useState(0);
+  const leftPage = (activePage + frameworkPages.length - 1) % frameworkPages.length;
+  const rightPage = (activePage + 1) % frameworkPages.length;
+
   return (
     <div className="framework-stage relative mx-auto h-[230px] w-full max-w-[360px] justify-self-center sm:h-[330px] sm:max-w-[560px] lg:h-[520px] lg:max-w-[560px] lg:justify-self-end">
       <div className="framework-aura absolute -inset-8 rounded-full" />
@@ -117,27 +124,71 @@ function ExecutiveFrameworkPages() {
         <FrameworkPage
           key={page.title}
           page={page}
-          className={`framework-page-${index + 1}`}
+          active={activePage === index}
+          className={`framework-page-${getFrameworkPosition(index, activePage)}`}
+          onActivate={() => setActivePage(index)}
         />
       ))}
+
+      <button
+        type="button"
+        aria-label={`Show ${frameworkPages[leftPage].title}`}
+        className="framework-hit-zone framework-hit-zone-left"
+        onClick={() => setActivePage(leftPage)}
+      />
+      <button
+        type="button"
+        aria-label={`Show ${frameworkPages[rightPage].title}`}
+        className="framework-hit-zone framework-hit-zone-right"
+        onClick={() => setActivePage(rightPage)}
+      />
     </div>
   );
 }
 
+function getFrameworkPosition(index: number, activeIndex: number) {
+  if (index === activeIndex) {
+    return "active";
+  }
+
+  return (index - activeIndex + frameworkPages.length) % frameworkPages.length === 1
+    ? "right"
+    : "left";
+}
+
 function FrameworkPage({
   page,
-  className
+  active,
+  className,
+  onActivate
 }: {
   page: (typeof frameworkPages)[number];
+  active: boolean;
   className: string;
+  onActivate: () => void;
 }) {
   return (
     <article
-      className={`framework-page absolute overflow-hidden rounded-lg border border-white/[0.16] bg-slate-950/[0.52] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.42)] backdrop-blur-2xl transition duration-500 hover:border-gold/55 hover:bg-slate-950/[0.62] sm:p-5 ${className}`}
+      role="button"
+      tabIndex={0}
+      aria-pressed={active}
+      onClick={onActivate}
+      onFocus={onActivate}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onActivate();
+        }
+      }}
+      className={`framework-page absolute cursor-pointer overflow-hidden rounded-lg border bg-slate-950/[0.52] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.42)] backdrop-blur-2xl transition duration-500 hover:border-gold/55 hover:bg-slate-950/[0.62] focus:outline-none focus:ring-2 focus:ring-gold/70 sm:p-5 ${
+        active
+          ? "is-active border-gold/65 bg-slate-950/[0.66] shadow-[0_34px_92px_rgba(0,0,0,0.52)]"
+          : "border-white/[0.16]"
+      } ${className}`}
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
       <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-gold/12 blur-2xl" />
-      <div className="relative">
+      <div className="relative z-10">
         <div className="flex items-center justify-between gap-3">
           <span className="text-[10px] font-extrabold uppercase tracking-[0.24em] text-gold">
             Framework {page.number}

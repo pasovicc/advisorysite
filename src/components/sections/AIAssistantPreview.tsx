@@ -32,7 +32,7 @@ export function AIAssistantPreview({ content }: AIAssistantPreviewProps) {
                 <Icon name="Sparkles" className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-extrabold">Jasna AI</p>
+                <p className="text-sm font-extrabold">Advisory AI</p>
                 <p className="text-xs text-slate-400">Project / Governance / Transformation</p>
               </div>
             </div>

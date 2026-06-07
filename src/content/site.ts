@@ -70,17 +70,17 @@ export type RoutePage = {
 };
 
 export const siteConfig = {
-  name: "Jasna Executive Advisory",
-  shortName: "Jasna Advisory",
+  name: "Executive Advisory",
+  shortName: "Advisory",
   tagline: "AI, Digital Transformation & Project Leadership",
   description:
     "Executive advisory, governance and education services for banks, institutions and modern organizations.",
-  email: "contact@jasna-advisory.com",
+  email: "jasnakingict@gmail.com",
   phone: "+387 00 000 000",
   location: "Sarajevo, Bosnia and Herzegovina",
   bookingUrl:
     process.env.NEXT_PUBLIC_CALENDLY_URL ||
-    "https://calendly.com/jasna/consultation",
+    "https://calendly.com/executive-advisory/consultation",
   seoKeywords: [
     "AI governance Balkans",
     "DORA consulting",
@@ -95,25 +95,11 @@ export const siteConfig = {
 export const navigation: NavItem[] = [
   {
     label: "About",
-    href: "/about",
-    children: [
-      { label: "Biography", href: "/about/biography" },
-      { label: "Experience", href: "/about/experience" },
-      { label: "Certifications & Education", href: "/about/certifications-education" },
-      { label: "Speaking & Publications", href: "/about/speaking-publications" }
-    ]
+    href: "/about"
   },
   {
     label: "Services",
-    href: "/services",
-    children: [
-      { label: "Project Management", href: "/services/project-management" },
-      { label: "Program & Portfolio Management", href: "/services/program-portfolio-management" },
-      { label: "AI & Digital Transformation", href: "/services/ai-digital-transformation" },
-      { label: "IT Governance & Security", href: "/services/it-governance-security" },
-      { label: "Consulting Services", href: "/services/consulting-services" },
-      { label: "Training & Education", href: "/services/training-education" }
-    ]
+    href: "/services"
   },
   {
     label: "Industries",
@@ -128,14 +114,7 @@ export const navigation: NavItem[] = [
   },
   {
     label: "Insights",
-    href: "/insights",
-    children: [
-      { label: "Articles", href: "/insights/articles" },
-      { label: "AI Governance", href: "/insights/ai-governance" },
-      { label: "Project Management", href: "/insights/project-management" },
-      { label: "Digital Transformation", href: "/insights/digital-transformation" },
-      { label: "Conference Talks", href: "/insights/conference-talks" }
-    ]
+    href: "/insights"
   },
   { label: "Book", href: "/#schedule-consultation" },
   { label: "Contact", href: "/contact" }
@@ -173,7 +152,7 @@ export const homeContent = {
       "Responsible adoption models for banking and public-sector contexts",
       "Transformation roadmaps that connect leadership, delivery and risk"
     ],
-    link: { label: "Explore AI Advisory", href: "/services/ai-digital-transformation" }
+    link: { label: "Explore AI Advisory", href: "/services" }
   },
   whyWork: [
     {
@@ -198,7 +177,7 @@ export const homeContent = {
     }
   ],
   assistant: {
-    title: "Ask Jasna AI",
+    title: "Advisory AI",
     subtitle:
       "A premium AI advisor for clear first answers on project management, AI governance, DORA readiness and digital transformation.",
     examples: [
@@ -460,7 +439,6 @@ export const aiKnowledgeBase = [
 const serviceCards = services.map((service) => ({
   title: service.title,
   description: service.description,
-  href: `/services/${service.slug}`,
   icon: service.icon
 }));
 
@@ -486,21 +464,19 @@ const aboutPages: RoutePage[] = [
       "Biography, leadership background, education, certifications, speaking and publication focus.",
     keywords: ["AI governance advisor", "project management professional", "banking IT leadership"],
     hero: {
-      eyebrow: "About Jasna",
-      title: "A leadership profile across AI, governance, project delivery and education.",
+      eyebrow: "About",
+      title: "Executive experience across AI, governance, project delivery and education.",
       text:
-        "Jasna is an experienced IT executive, project management professional and AI governance advisor with more than 25 years of experience in IT leadership, digital transformation and organizational development."
+        "A combined profile of enterprise IT leadership, regulated transformation, AI governance, education and executive advisory work."
     },
     sections: [
       {
-        title: "Biography",
-        body: [
-          "Her background combines enterprise IT, banking, project delivery, education and artificial intelligence.",
-          "She helps organizations modernize operations, improve governance and prepare for the future of AI-enabled business."
-        ]
-      },
-      {
+        eyebrow: "Experience",
         title: "Experience",
+        body: [
+          "More than 25 years of leadership across enterprise IT, banking technology, project delivery and organizational transformation.",
+          "The work brings structure to complex decisions where governance, risk, people and technology need to move together."
+        ],
         bullets: [
           "Banking IT leadership and regulated transformation programs",
           "Project, program and portfolio governance",
@@ -508,6 +484,15 @@ const aboutPages: RoutePage[] = [
         ]
       },
       {
+        eyebrow: "Biography",
+        title: "Biography",
+        body: [
+          "The professional background combines enterprise IT, banking, project delivery, education and artificial intelligence.",
+          "The advisory work helps organizations modernize operations, improve governance and prepare for the future of AI-enabled business."
+        ]
+      },
+      {
+        eyebrow: "Credentials",
         title: "Certifications & Education",
         bullets: [
           "PMP certified project management professional",
@@ -516,133 +501,15 @@ const aboutPages: RoutePage[] = [
         ]
       },
       {
+        eyebrow: "Speaking",
         title: "Speaking & Publications",
         body: [
           "Speaking topics include AI governance, digital transformation, project leadership, banking IT and the future of professional education."
         ]
       }
     ]
-  },
-  {
-    slug: "about/biography",
-    title: "Biography",
-    description: "Professional biography for Jasna Executive Advisory.",
-    keywords: ["Jasna biography", "AI governance advisor", "project leadership"],
-    hero: {
-      eyebrow: "Biography",
-      title: "Executive experience with a rare cross-section of AI, banking IT and delivery leadership.",
-      text:
-        "Jasna works at the intersection of strategy, governance, technology and education."
-    },
-    sections: [
-      {
-        title: "Professional Profile",
-        body: [
-          "With more than 25 years in IT leadership and organizational development, Jasna supports leaders who need clarity before, during and after transformation.",
-          "Her work links strategic intent with governance, people, delivery structures and education."
-        ]
-      }
-    ]
-  },
-  {
-    slug: "about/experience",
-    title: "Experience",
-    description: "Experience across banking IT, governance, transformation and project leadership.",
-    keywords: ["banking IT leadership", "digital transformation consulting", "PM consulting Bosnia"],
-    hero: {
-      eyebrow: "Experience",
-      title: "Practical leadership in complex, regulated and knowledge-led environments.",
-      text:
-        "The advisory approach comes from real delivery settings where governance, risk and executive alignment matter."
-    },
-    sections: [
-      {
-        title: "Core Experience",
-        bullets: [
-          "IT leadership in banking and enterprise environments",
-          "Digital transformation and organizational development",
-          "Project, program and portfolio management",
-          "Governance, risk and security-aware delivery"
-        ]
-      }
-    ]
-  },
-  {
-    slug: "about/certifications-education",
-    title: "Certifications & Education",
-    description: "PMP certification, PhD in AI and education background.",
-    keywords: ["PMP certified", "PhD in AI", "project management education"],
-    hero: {
-      eyebrow: "Certifications & Education",
-      title: "A foundation in project discipline, artificial intelligence and executive learning.",
-      text:
-        "Credentials matter most when they help leaders make better decisions and help teams work with more confidence."
-    },
-    sections: [
-      {
-        title: "Credentials",
-        bullets: [
-          "PMP certified",
-          "PhD in artificial intelligence",
-          "Professional education and mentoring background"
-        ]
-      }
-    ]
-  },
-  {
-    slug: "about/speaking-publications",
-    title: "Speaking & Publications",
-    description: "Conference topics, articles and professional publications.",
-    keywords: ["international speaker", "AI workshops Balkans", "conference talks"],
-    hero: {
-      eyebrow: "Speaking & Publications",
-      title: "Clear executive education for conferences, workshops and institutional audiences.",
-      text:
-        "Speaking engagements focus on the leadership questions behind AI, governance, project delivery and transformation."
-    },
-    sections: [
-      {
-        title: "Topics",
-        bullets: [
-          "AI governance for executives",
-          "DORA and IT governance readiness",
-          "Digital transformation strategy",
-          "Project leadership and the future of PM"
-        ]
-      }
-    ]
   }
 ];
-
-const servicePages: RoutePage[] = services.map((service) => ({
-  slug: `services/${service.slug}`,
-  title: service.title,
-  description: service.description,
-  keywords: [service.title, "executive consulting", "project management education"],
-  hero: {
-    eyebrow: "Service",
-    title: service.title,
-    text: service.longDescription
-  },
-  sections: [
-    {
-      title: "Advisory Focus",
-      body: [service.longDescription],
-      bullets: service.deliverables
-    },
-    {
-      title: "Typical Engagements",
-      bullets: service.engagements
-    }
-  ],
-  cta: {
-    title: "Discuss the right format for your organization.",
-    text:
-      "A short consultation can clarify scope, timing, stakeholders and the level of support needed.",
-    primary: { label: "Book a Consultation", href: "/#schedule-consultation" },
-    secondary: { label: "View All Services", href: "/services" }
-  }
-}));
 
 const industryPages: RoutePage[] = industries.map((industry) => ({
   slug: `industries/${industry.slug}`,
@@ -672,95 +539,17 @@ const industryPages: RoutePage[] = industries.map((industry) => ({
   }
 }));
 
-const insightCategoryPages: RoutePage[] = [
-  {
-    slug: "insights/articles",
-    title: "Articles",
-    description: "Articles on AI governance, project management and digital transformation.",
-    keywords: ["AI governance articles", "project management articles", "digital transformation"],
-    hero: {
-      eyebrow: "Articles",
-      title: "Practical writing for leaders managing technology, governance and delivery.",
-      text:
-        "Articles translate complex transformation topics into decisions, structures and next steps."
-    },
-    sections: [{ title: "Featured Articles", cards: insightCards }]
-  },
-  {
-    slug: "insights/ai-governance",
-    title: "AI Governance",
-    description: "Insights on responsible AI governance and organizational readiness.",
-    keywords: ["AI governance Balkans", "AI for banks", "AI workshops Balkans"],
-    hero: {
-      eyebrow: "AI Governance",
-      title: "Responsible AI needs ownership, controls and learning.",
-      text:
-        "These insights focus on practical AI governance for regulated and knowledge-led organizations."
-    },
-    sections: [{ title: "Recommended Reading", cards: insightCards.filter((item) => item.title.includes("AI")) }]
-  },
-  {
-    slug: "insights/project-management",
-    title: "Project Management",
-    description: "Insights on project leadership, PMO, programs and portfolios.",
-    keywords: ["PM consulting Bosnia", "project management education", "PMO"],
-    hero: {
-      eyebrow: "Project Management",
-      title: "Delivery discipline for leaders who need clarity and momentum.",
-      text:
-        "Project management insights cover governance, PMO, leadership, reporting and delivery health."
-    },
-    sections: [{ title: "Recommended Reading", cards: insightCards }]
-  },
-  {
-    slug: "insights/digital-transformation",
-    title: "Digital Transformation",
-    description: "Insights on transformation strategy, operating models and AI adoption.",
-    keywords: ["digital transformation consulting", "AI for banks", "transformation roadmap"],
-    hero: {
-      eyebrow: "Digital Transformation",
-      title: "Modernization works when leaders align ambition with operating reality.",
-      text:
-        "Transformation insights focus on governance, prioritization, readiness and adoption."
-    },
-    sections: [{ title: "Recommended Reading", cards: insightCards }]
-  },
-  {
-    slug: "insights/conference-talks",
-    title: "Conference Talks",
-    description: "Conference talks and speaking topics.",
-    keywords: ["international speaker", "AI workshops Balkans", "conference talks"],
-    hero: {
-      eyebrow: "Conference Talks",
-      title: "Executive talks on AI, governance, transformation and project leadership.",
-      text:
-        "Talks can be adapted for conferences, leadership forums, universities and professional associations."
-    },
-    sections: [
-      {
-        title: "Speaking Themes",
-        bullets: [
-          "AI governance for boards and executives",
-          "DORA readiness and IT governance",
-          "The future of project management",
-          "Digital transformation in regulated organizations"
-        ]
-      }
-    ]
-  }
-];
-
 const aiAdvisorPages: RoutePage[] = [
   {
     slug: "ai-advisor",
     title: "AI Advisor",
-    description: "Ask Jasna AI about project management, AI governance, DORA and transformation.",
-    keywords: ["Ask Jasna AI", "AI governance advisor", "project management questions"],
+    description: "Ask Advisory AI about project management, AI governance, DORA and transformation.",
+    keywords: ["Advisory AI", "AI governance advisor", "project management questions"],
     hero: {
-      eyebrow: "Ask Jasna AI",
+      eyebrow: "Advisory AI",
       title: "A premium AI advisor for practical first answers.",
       text:
-        "Use Ask Jasna AI to explore project management, PMO, AI governance, DORA readiness and digital transformation basics."
+        "Use Advisory AI to explore project management, PMO, AI governance, DORA readiness and digital transformation basics."
     },
     showAssistant: true,
     sections: [
@@ -876,13 +665,18 @@ export const routePages: RoutePage[] = [
       text: homeContent.servicesIntro
     },
     sections: [
+      ...services.map((service) => ({
+        eyebrow: "Service",
+        title: service.title,
+        body: [service.longDescription],
+        bullets: [...service.deliverables, ...service.engagements]
+      })),
       {
-        title: "Service Areas",
+        title: "Service Summary",
         cards: serviceCards
       }
     ]
   },
-  ...servicePages,
   {
     slug: "industries",
     title: "Industries",
@@ -923,7 +717,6 @@ export const routePages: RoutePage[] = [
       }
     ]
   },
-  ...insightCategoryPages,
   ...insights.map((insight) => ({
     slug: `insights/${insight.slug}`,
     title: insight.title,
@@ -977,8 +770,8 @@ export const routePages: RoutePage[] = [
   {
     slug: "contact",
     title: "Contact",
-    description: "Contact Jasna Executive Advisory.",
-    keywords: ["contact Jasna", "executive advisory", "PM consulting Bosnia"],
+    description: "Contact Executive Advisory.",
+    keywords: ["contact executive advisory", "executive advisory", "PM consulting Bosnia"],
     hero: {
       eyebrow: "Contact",
       title: "For consulting, workshops, speaking and advisory inquiries.",

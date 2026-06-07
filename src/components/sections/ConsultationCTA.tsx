@@ -233,8 +233,8 @@ function BookingCalendar() {
           </div>
 
           <div className="mt-4 grid grid-cols-7 gap-1 text-center text-[10px] font-extrabold uppercase text-slate-500">
-            {weekdayLabels.map((day) => (
-              <span key={day}>{day}</span>
+            {weekdayLabels.map((day, index) => (
+              <span key={`${day}-${index}`}>{day}</span>
             ))}
           </div>
 

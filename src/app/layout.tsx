@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteConfig();
 
   return {
-    metadataBase: new URL("https://jasna-advisory.example"),
+    metadataBase: new URL("https://executive-advisory.example"),
     title: {
       default: `${site.name} | ${site.tagline}`,
       template: `%s | ${site.name}`
