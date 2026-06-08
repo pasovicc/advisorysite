@@ -39,175 +39,212 @@ export function ServicesPage({ services }: ServicesPageProps) {
         </div>
       </section>
 
-      <section className="bg-white">
-        {services.map((service, index) => (
-          <ServiceDetailSection
-            key={service.slug}
-            service={service}
-            index={index}
-            variant={index % 3}
-          />
-        ))}
-      </section>
-
-      <ServiceSummary services={services} />
+      <ServiceIndex services={services} />
+      <ServiceIntelligence services={services} />
     </>
   );
 }
 
-function ServiceDetailSection({
-  service,
-  index,
-  variant
-}: {
-  service: Service;
-  index: number;
-  variant: number;
-}) {
-  if (variant === 1) {
-    return (
-      <section className="bg-porcelain py-16 lg:py-20">
-        <div className="container-shell">
-          <Reveal>
-            <article className="grid gap-8 rounded-lg border border-slate-200 bg-white p-6 shadow-sm md:p-8 lg:grid-cols-[0.62fr_0.38fr] lg:items-stretch">
-              <div className="flex flex-col justify-between rounded-lg bg-navy p-6 text-white md:p-8">
-                <div>
-                  <p className="mb-5 text-xs font-bold uppercase tracking-[0.24em] text-gold">
-                    Service
-                  </p>
-                  <h2 className="font-display text-4xl leading-[1.02] md:text-5xl">
-                    {service.title}
-                  </h2>
-                  <p className="mt-6 max-w-2xl text-base leading-8 text-slate-200">
-                    {service.longDescription}
-                  </p>
-                </div>
-                <div className="mt-8 flex h-14 w-14 items-center justify-center rounded-lg border border-gold/35 bg-gold/15 text-gold">
-                  <Icon name={service.icon} className="h-6 w-6" />
-                </div>
-              </div>
-              <BulletStack title="Engagements" bullets={service.engagements} compact />
-            </article>
-          </Reveal>
-        </div>
-      </section>
-    );
-  }
-
-  if (variant === 2) {
-    return (
-      <section className="bg-white py-16 lg:py-20">
-        <div className="container-shell">
-          <Reveal>
-            <article className="grid gap-8 lg:grid-cols-[0.38fr_0.62fr] lg:items-start">
-              <div className="rounded-lg border border-slate-200 bg-porcelain p-6">
-                <div className="mb-8 border-b border-slate-200 pb-5">
-                  <span className="text-xs font-bold uppercase tracking-[0.24em] text-gold">
-                    Service
-                  </span>
-                </div>
-                <h2 className="font-display text-4xl leading-[1.02] text-navy md:text-5xl">
-                  {service.title}
-                </h2>
-              </div>
-              <div>
-                <p className="max-w-3xl text-lg leading-8 text-graphite">{service.longDescription}</p>
-                <div className="mt-8 grid gap-4 md:grid-cols-2">
-                  {[...service.deliverables, ...service.engagements].map((item) => (
-                    <div key={item} className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-                      <Icon name="CheckCircle2" className="mb-4 h-4 w-4 text-gold" />
-                      <p className="text-sm font-bold leading-6 text-slate-700">{item}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </article>
-          </Reveal>
-        </div>
-      </section>
-    );
-  }
-
+function ServiceIndex({ services }: { services: Service[] }) {
   return (
-    <section className="bg-white py-16 lg:py-20">
+    <section className="bg-white py-16 lg:py-24">
       <div className="container-shell">
         <Reveal>
-          <article className="grid gap-10 lg:grid-cols-[0.34fr_0.66fr]">
+          <div className="grid gap-8 border-b border-slate-200 pb-10 lg:grid-cols-[0.36fr_0.64fr] lg:items-end">
             <div>
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-gold">
-                Service
+              <p className="mb-5 text-xs font-bold uppercase tracking-[0.28em] text-gold">
+                Operating Model
               </p>
               <h2 className="font-display text-4xl leading-[1.02] text-navy md:text-5xl">
-                {service.title}
+                One advisory system, six ways to enter.
               </h2>
             </div>
-            <div>
-              <p className="max-w-4xl text-lg leading-8 text-graphite">{service.longDescription}</p>
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-                <BulletStack title="Deliverables" bullets={service.deliverables} />
-                <BulletStack title="Engagements" bullets={service.engagements} />
-              </div>
-            </div>
-          </article>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function BulletStack({
-  title,
-  bullets,
-  compact = false
-}: {
-  title: string;
-  bullets: string[];
-  compact?: boolean;
-}) {
-  return (
-    <div className={`rounded-lg border border-slate-200 bg-porcelain p-5 ${compact ? "h-full" : ""}`}>
-      <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.2em] text-gold">{title}</p>
-      <div className="grid gap-3">
-        {bullets.map((bullet) => (
-          <div key={bullet} className="flex gap-3 rounded-lg border border-slate-200 bg-white p-4">
-            <Icon name="CheckCircle2" className="mt-1 h-4 w-4 shrink-0 text-gold" />
-            <p className="text-sm font-bold leading-6 text-slate-700">{bullet}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ServiceSummary({ services }: { services: Service[] }) {
-  return (
-    <section className="bg-white py-16 lg:py-20">
-      <div className="container-shell">
-        <Reveal>
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.28em] text-gold">
-              Overview
-            </p>
-            <h2 className="font-display text-4xl leading-[1.02] text-navy md:text-5xl">
-              Service Summary
-            </h2>
+            <div aria-hidden="true" />
           </div>
         </Reveal>
-        <div className="mx-auto mt-12 grid max-w-5xl gap-x-16 gap-y-14 md:grid-cols-3">
+
+        <div className="mt-4 divide-y divide-slate-200">
           {services.map((service, index) => (
-            <Reveal key={service.slug} delay={index * 60} className="h-full">
-              <article className="flex min-h-[150px] flex-col justify-between rounded-lg border-2 border-navy bg-white p-5 transition hover:-translate-y-1 hover:border-gold hover:shadow-card">
-                <div className="flex items-center justify-between">
-                  <Icon name={service.icon} className="h-5 w-5 text-navy" />
+            <Reveal key={service.slug} delay={index * 55}>
+              <article className="grid gap-6 py-9 transition hover:pl-2 md:grid-cols-[0.12fr_0.28fr_0.38fr_0.22fr] md:items-start">
+                <div className="flex items-center gap-3 text-gold">
+                  <Icon name={service.icon} className="h-5 w-5" />
+                  <span className="h-px w-10 bg-gold/70" />
                 </div>
-                <h3 className="mt-8 font-display text-2xl leading-[1.05] text-navy">
+                <h3 className="font-display text-3xl leading-[1.04] text-navy md:text-4xl">
                   {service.title}
                 </h3>
+                <p className="text-base leading-8 text-graphite">{service.longDescription}</p>
+                <div className="grid gap-2">
+                  {service.engagements.map((item) => (
+                    <p key={item} className="text-sm font-extrabold leading-6 text-navy">
+                      <span className="mr-2 text-gold">/</span>
+                      {item}
+                    </p>
+                  ))}
+                </div>
               </article>
             </Reveal>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function ServiceIntelligence({ services }: { services: Service[] }) {
+  const focusAreas = [
+    { label: "Governance", value: 34, color: "#C8A96B" },
+    { label: "Delivery", value: 28, color: "#F8FAFC" },
+    { label: "AI adoption", value: 22, color: "#64748B" },
+    { label: "Education", value: 16, color: "#94A3B8" }
+  ];
+
+  return (
+    <section className="bg-[#080b12] py-16 text-white lg:py-24">
+      <div className="container-shell">
+        <Reveal>
+          <div className="grid gap-8 border-b border-white/10 pb-10 lg:grid-cols-[0.45fr_0.55fr] lg:items-end">
+            <div>
+              <p className="mb-5 text-xs font-bold uppercase tracking-[0.28em] text-gold">
+                Service Intelligence
+              </p>
+              <h2 className="font-display text-4xl leading-[1.02] text-white md:text-5xl">
+                Focus, coverage and practical outputs.
+              </h2>
+            </div>
+            <div aria-hidden="true" />
+          </div>
+        </Reveal>
+
+        <div className="mt-12 grid gap-12 lg:grid-cols-[0.44fr_0.56fr] lg:items-center">
+          <Reveal delay={80}>
+            <div className="grid gap-7 sm:grid-cols-[220px_1fr] sm:items-center">
+              <PieChart areas={focusAreas} />
+              <div className="grid gap-4">
+                {focusAreas.map((area) => (
+                  <div key={area.label}>
+                    <div className="mb-2 flex items-center justify-between gap-4">
+                      <span className="text-sm font-extrabold text-slate-200">{area.label}</span>
+                      <span className="text-xs font-bold text-gold">{area.value}%</span>
+                    </div>
+                    <div className="h-px bg-white/12">
+                      <div
+                        className="h-px bg-gold"
+                        style={{ width: `${area.value * 2.2}%`, maxWidth: "100%" }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={140}>
+            <RadarChart />
+          </Reveal>
+        </div>
+
+        <Reveal delay={180}>
+          <div className="mt-12 grid gap-0 border-y border-white/12">
+            {services.map((service) => (
+              <div
+                key={service.slug}
+                className="grid gap-4 border-b border-white/12 py-6 last:border-b-0 md:grid-cols-[0.28fr_0.72fr]"
+              >
+                <h3 className="font-display text-2xl leading-[1.05] text-white md:text-3xl">
+                  {service.title}
+                </h3>
+                <p className="text-base font-medium leading-8 text-slate-300">
+                  {service.deliverables.join(" / ")}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function PieChart({
+  areas
+}: {
+  areas: { label: string; value: number; color: string }[];
+}) {
+  let offset = 25;
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 220 220" className="h-[220px] w-[220px]">
+      <circle cx="110" cy="110" r="74" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="28" />
+      {areas.map((area) => {
+        const dash = `${area.value} ${100 - area.value}`;
+        const circle = (
+          <circle
+            key={area.label}
+            cx="110"
+            cy="110"
+            r="74"
+            fill="none"
+            stroke={area.color}
+            strokeDasharray={dash}
+            strokeDashoffset={offset}
+            strokeLinecap="butt"
+            strokeWidth="28"
+            pathLength="100"
+            transform="rotate(-90 110 110)"
+          />
+        );
+        offset -= area.value;
+        return circle;
+      })}
+      <circle cx="110" cy="110" r="43" fill="#080b12" />
+      <text x="110" y="104" fill="#FFFFFF" fontSize="25" fontFamily="Georgia, serif" textAnchor="middle">
+        100
+      </text>
+      <text x="110" y="126" fill="#C8A96B" fontSize="10" fontWeight="800" letterSpacing="2" textAnchor="middle">
+        COVERAGE
+      </text>
+    </svg>
+  );
+}
+
+function RadarChart() {
+  const points = "150,28 244,82 220,196 150,248 70,196 54,84";
+  const inner = "150,76 204,106 190,176 150,206 102,178 92,108";
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 300 276" className="mx-auto h-auto w-full max-w-[520px]">
+      {[0, 1, 2].map((level) => (
+        <polygon
+          key={level}
+          points={level === 0 ? "150,52 226,96 206,186 150,228 88,188 76,98" : level === 1 ? inner : "150,112 174,126 170,158 150,174 128,158 124,128"}
+          fill="none"
+          stroke="rgba(255,255,255,0.12)"
+        />
+      ))}
+      <polygon points={points} fill="rgba(200,169,107,0.18)" stroke="#C8A96B" strokeWidth="2" />
+      {[
+        ["Strategy", 150, 16],
+        ["Risk", 265, 78],
+        ["Delivery", 246, 218],
+        ["Capability", 150, 270],
+        ["AI", 44, 220],
+        ["Controls", 28, 78]
+      ].map(([label, x, y]) => (
+        <text
+          key={label}
+          x={Number(x)}
+          y={Number(y)}
+          fill="#CBD5E1"
+          fontSize="11"
+          fontWeight="800"
+          letterSpacing="1.5"
+          textAnchor="middle"
+        >
+          {label}
+        </text>
+      ))}
+    </svg>
   );
 }

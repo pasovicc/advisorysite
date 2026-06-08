@@ -7,13 +7,11 @@ type FooterProps = {
   site: typeof siteConfig;
 };
 
-export function Footer({ navigation, site }: FooterProps) {
-  const quickLinks = navigation.filter((item) => !item.children);
-
+export function Footer({ site }: FooterProps) {
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="container-shell py-14">
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <div>
           <Link href="/" className="inline-flex items-center gap-3">
             <span className="grid h-11 w-11 place-items-center rounded-lg border border-gold/35 bg-porcelain font-display text-2xl text-navy">
               J
@@ -23,22 +21,10 @@ export function Footer({ navigation, site }: FooterProps) {
                 {site.shortName}
               </span>
               <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-graphite">
-                AI · Governance · PM
+                AI - Governance - PM
               </span>
             </span>
           </Link>
-
-          <div className="flex flex-wrap gap-3 lg:justify-end">
-            {quickLinks.map((item) => (
-              <Link
-                href={item.href}
-                key={item.href}
-                className="rounded-lg border border-slate-200 bg-porcelain px-4 py-2 text-sm font-extrabold text-navy transition hover:border-gold/60 hover:bg-white"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
         </div>
 
         <div className="mt-8 grid gap-8 rounded-lg border border-slate-200 bg-porcelain p-6 md:grid-cols-[1fr_0.9fr] md:items-center">
@@ -57,8 +43,8 @@ export function Footer({ navigation, site }: FooterProps) {
       </div>
       <div className="border-t border-slate-200 py-5">
         <div className="container-shell flex flex-col gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} {site.name}</span>
-          <span>Built for CMS, booking and AI advisor integration</span>
+          <span>Copyright {new Date().getFullYear()} {site.name}</span>
+          <span>Executive advisory for AI, governance and project leadership</span>
         </div>
       </div>
     </footer>

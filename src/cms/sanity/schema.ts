@@ -1,4 +1,4 @@
-export const sanitySchemaPlaceholders = [
+export const sanitySchemaDefinitions = [
   {
     name: "homePage",
     title: "Home Page",
@@ -32,4 +32,4 @@ export const sanitySchemaPlaceholders = [
 ];
 
 export const sanityMigrationNote =
-  "Install Sanity, convert these placeholders to defineType calls, then replace src/lib/cms.ts with GROQ-backed fetch functions.";
+  "Install Sanity, convert these definitions to defineType calls, then replace src/lib/cms.ts with GROQ-backed fetch functions.";

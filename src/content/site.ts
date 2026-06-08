@@ -103,14 +103,7 @@ export const navigation: NavItem[] = [
   },
   {
     label: "Industries",
-    href: "/industries",
-    children: [
-      { label: "Banking & Financial Services", href: "/industries/banking-financial-services" },
-      { label: "Government & Public Sector", href: "/industries/government-public-sector" },
-      { label: "IT & Software", href: "/industries/it-software" },
-      { label: "Infrastructure & Utilities", href: "/industries/infrastructure-utilities" },
-      { label: "Education", href: "/industries/education" }
-    ]
+    href: "/industries"
   },
   {
     label: "Insights",
@@ -590,7 +583,7 @@ const aiAdvisorPages: RoutePage[] = [
       eyebrow: "PM Knowledge Base",
       title: "Simple answers to core project management questions.",
       text:
-        "This section can later connect to articles, templates, course materials and a RAG knowledge base."
+        "Use this section for practical explanations of project management concepts, PMO structures and delivery governance."
     },
     sections: [
       {
@@ -729,9 +722,9 @@ export const routePages: RoutePage[] = [
     },
     sections: [
       {
-        title: "Article Placeholder",
+        title: "Article Summary",
         body: [
-          "This article page is ready for CMS content. Add the full article body, author notes and related resources in the content layer or Sanity."
+          "This insight gives leaders a practical way to frame decisions, controls and delivery conversations around the topic."
         ]
       }
     ]
@@ -762,7 +755,7 @@ export const routePages: RoutePage[] = [
     cta: {
       title: "Ready to schedule?",
       text:
-        "The booking link is prepared for Calendly and can be replaced with the client’s live scheduling URL.",
+        "Choose a focused consultation to discuss your goals, current risks and the practical next step.",
       primary: { label: "Open Calendly", href: siteConfig.bookingUrl },
       secondary: { label: "Contact First", href: "/contact" }
     }

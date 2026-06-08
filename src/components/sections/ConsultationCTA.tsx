@@ -69,28 +69,30 @@ export function ConsultationCTA({ content, compact = false }: ConsultationCTAPro
                 ))}
               </div>
 
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                {primary ? (
-                  <Link
-                    href={primary.href}
-                    target={external ? "_blank" : undefined}
-                    rel={external ? "noreferrer" : undefined}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-navy bg-navy px-5 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
-                  >
-                    <Icon name="Calendar" className="h-4 w-4" />
-                    {primary.label}
-                  </Link>
-                ) : null}
-                {secondary ? (
-                  <Link
-                    href={secondary.href}
-                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-navy transition hover:-translate-y-0.5 hover:border-gold/70"
-                  >
-                    {secondary.label}
-                    <Icon name="ArrowRight" className="h-4 w-4" />
-                  </Link>
-                ) : null}
-              </div>
+              {(!compact && primary) || secondary ? (
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                  {primary && !compact ? (
+                    <Link
+                      href={primary.href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noreferrer" : undefined}
+                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-navy bg-navy px-5 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+                    >
+                      <Icon name="Calendar" className="h-4 w-4" />
+                      {primary.label}
+                    </Link>
+                  ) : null}
+                  {secondary ? (
+                    <Link
+                      href={secondary.href}
+                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-navy transition hover:-translate-y-0.5 hover:border-gold/70"
+                    >
+                      {secondary.label}
+                      <Icon name="ArrowRight" className="h-4 w-4" />
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
             </div>
 
             {compact ? <CompactConsultationCard primary={primary} external={external} /> : <BookingCalendar />}
@@ -318,7 +320,7 @@ function BookingCalendar() {
 
           {confirmed ? (
             <p className="rounded-lg border border-gold/35 bg-white px-4 py-3 text-sm font-bold leading-6 text-navy">
-              Selection saved as a request placeholder. A real submission flow can be connected later.
+              Your preferred time is noted. Please use the consultation link to complete the booking request.
             </p>
           ) : null}
         </div>

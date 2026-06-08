@@ -7,10 +7,10 @@ Premium Next.js website for an executive consulting brand focused on AI governan
 - Next.js App Router
 - Tailwind CSS
 - Content-first structure in `src/content`
-- CMS placeholder layer in `src/lib/cms.ts`
-- Sanity schema placeholders in `src/cms/sanity/schema.ts`
+- CMS-ready content layer in `src/lib/cms.ts`
+- Sanity schema definitions in `src/cms/sanity/schema.ts`
 - AI advisor system prompt in `src/content/ai/system-prompt.ts`
-- OpenAI-ready API route in `src/app/api/ai-advisor/route.ts`
+- AI advisor API route in `src/app/api/ai-advisor/route.ts`
 
 ## Local Setup
 
@@ -19,6 +19,6 @@ npm install
 npm run dev
 ```
 
-Copy `.env.example` to `.env.local` when connecting Calendly or OpenAI.
+Copy `.env.example` to `.env.local` when connecting booking and assistant services.
 
-The AI assistant works without an API key using predefined fallback responses. To connect OpenAI later, set both `OPENAI_API_KEY` and `OPENAI_MODEL`.
+The AI assistant works without an API key using predefined fallback responses. To connect a live model later, set the provider key and model environment variables.
