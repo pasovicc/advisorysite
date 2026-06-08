@@ -69,28 +69,15 @@ export function ConsultationCTA({ content, compact = false }: ConsultationCTAPro
                 ))}
               </div>
 
-              {(!compact && primary) || secondary ? (
+              {secondary ? (
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                  {primary && !compact ? (
-                    <Link
-                      href={primary.href}
-                      target={external ? "_blank" : undefined}
-                      rel={external ? "noreferrer" : undefined}
-                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-navy bg-navy px-5 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
-                    >
-                      <Icon name="Calendar" className="h-4 w-4" />
-                      {primary.label}
-                    </Link>
-                  ) : null}
-                  {secondary ? (
-                    <Link
-                      href={secondary.href}
-                      className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-navy transition hover:-translate-y-0.5 hover:border-gold/70"
-                    >
-                      {secondary.label}
-                      <Icon name="ArrowRight" className="h-4 w-4" />
-                    </Link>
-                  ) : null}
+                  <Link
+                    href={secondary.href}
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-navy transition hover:-translate-y-0.5 hover:border-gold/70"
+                  >
+                    {secondary.label}
+                    <Icon name="ArrowRight" className="h-4 w-4" />
+                  </Link>
                 </div>
               ) : null}
             </div>
