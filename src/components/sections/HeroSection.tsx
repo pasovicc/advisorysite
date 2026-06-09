@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
@@ -25,7 +28,7 @@ export function HeroSection({ content, trustItems }: HeroSectionProps) {
         fill
         priority
         sizes="100vw"
-        className="scale-[1.03] object-cover opacity-95"
+        className="hero-background-image object-cover opacity-95"
       />
       <div className="hero-boardroom-motion absolute inset-0" />
       <div className="hero-cinematic-depth absolute inset-0" />
@@ -72,7 +75,7 @@ export function HeroSection({ content, trustItems }: HeroSectionProps) {
           <ExecutiveFrameworkPages />
         </div>
 
-        <div className="max-w-[1180px]">
+        <div className="mx-auto w-full max-w-[1180px]">
           <TrustBar items={trustItems} variant="hero" />
         </div>
       </div>
@@ -105,8 +108,12 @@ const frameworkPages = [
 ];
 
 function ExecutiveFrameworkPages() {
+  const [activePage, setActivePage] = useState(0);
+  const leftPage = (activePage + frameworkPages.length - 1) % frameworkPages.length;
+  const rightPage = (activePage + 1) % frameworkPages.length;
+
   return (
-    <div className="framework-stage relative mx-auto h-[230px] w-full max-w-[360px] justify-self-center sm:h-[330px] sm:max-w-[560px] lg:h-[520px] lg:max-w-[560px] lg:justify-self-end">
+    <div className="framework-stage relative mx-auto h-[250px] w-full max-w-[380px] justify-self-center sm:h-[350px] sm:max-w-[600px] lg:h-[560px] lg:max-w-[620px] lg:justify-self-end">
       <div className="framework-aura absolute -inset-8 rounded-full" />
       <div className="framework-lightline absolute bottom-5 left-8 right-6 h-px" />
       <div className="framework-particle framework-particle-one" />
@@ -117,37 +124,81 @@ function ExecutiveFrameworkPages() {
         <FrameworkPage
           key={page.title}
           page={page}
-          className={`framework-page-${index + 1}`}
+          active={activePage === index}
+          className={`framework-page-${getFrameworkPosition(index, activePage)}`}
+          onActivate={() => setActivePage(index)}
         />
       ))}
+
+      <button
+        type="button"
+        aria-label={`Show ${frameworkPages[leftPage].title}`}
+        className="framework-hit-zone framework-hit-zone-left"
+        onClick={() => setActivePage(leftPage)}
+      />
+      <button
+        type="button"
+        aria-label={`Show ${frameworkPages[rightPage].title}`}
+        className="framework-hit-zone framework-hit-zone-right"
+        onClick={() => setActivePage(rightPage)}
+      />
     </div>
   );
 }
 
+function getFrameworkPosition(index: number, activeIndex: number) {
+  if (index === activeIndex) {
+    return "active";
+  }
+
+  return (index - activeIndex + frameworkPages.length) % frameworkPages.length === 1
+    ? "right"
+    : "left";
+}
+
 function FrameworkPage({
   page,
-  className
+  active,
+  className,
+  onActivate
 }: {
   page: (typeof frameworkPages)[number];
+  active: boolean;
   className: string;
+  onActivate: () => void;
 }) {
   return (
     <article
-      className={`framework-page absolute overflow-hidden rounded-lg border border-white/[0.16] bg-slate-950/[0.52] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.42)] backdrop-blur-2xl transition duration-500 hover:border-gold/55 hover:bg-slate-950/[0.62] sm:p-5 ${className}`}
+      role="button"
+      tabIndex={0}
+      aria-pressed={active}
+      onClick={onActivate}
+      onFocus={onActivate}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onActivate();
+        }
+      }}
+      className={`framework-page absolute cursor-pointer overflow-hidden rounded-lg border bg-slate-950/[0.58] p-4 shadow-[0_30px_80px_rgba(0,0,0,0.42)] backdrop-blur-xl transition duration-500 hover:border-gold/55 hover:bg-slate-950/[0.68] focus:outline-none focus:ring-2 focus:ring-gold/70 sm:p-5 lg:p-6 ${
+        active
+          ? "is-active border-gold/65 bg-slate-950/[0.72] shadow-[0_34px_92px_rgba(0,0,0,0.52)]"
+          : "border-white/[0.16]"
+      } ${className}`}
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
       <div className="absolute -right-12 -top-12 h-28 w-28 rounded-full bg-gold/12 blur-2xl" />
-      <div className="relative">
+      <div className="relative z-10">
         <div className="flex items-center justify-between gap-3">
           <span className="text-[10px] font-extrabold uppercase tracking-[0.24em] text-gold">
             Framework {page.number}
           </span>
           <span className="h-2 w-2 rounded-full bg-gold shadow-[0_0_16px_rgba(200,169,107,0.78)]" />
         </div>
-        <h2 className="mt-3 font-display text-[1.05rem] leading-[1.04] text-white sm:mt-4 sm:text-[1.45rem] lg:text-[1.65rem]">
+        <h2 className="mt-3 font-display text-[1.05rem] leading-[1.04] text-white sm:mt-4 sm:text-[1.5rem] lg:text-[1.85rem]">
           {page.title}
         </h2>
-        <p className="framework-page-copy mt-3 hidden text-xs font-medium leading-5 text-slate-200 sm:block">
+        <p className="framework-page-copy mt-3 hidden text-xs font-semibold leading-5 text-slate-100 sm:block lg:text-[0.82rem] lg:leading-6">
           {page.text}
         </p>
         <FrameworkVisual type={page.visual} />
@@ -155,7 +206,7 @@ function FrameworkPage({
           {page.items.map((item) => (
             <div key={item} className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-gold/80" />
-              <span className="text-[11px] font-bold text-slate-200">{item}</span>
+              <span className="text-[11px] font-extrabold text-slate-100 lg:text-xs">{item}</span>
             </div>
           ))}
         </div>

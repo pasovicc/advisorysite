@@ -30,7 +30,7 @@ export function FeaturedInsights({ insights }: FeaturedInsightsProps) {
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {insights.map((insight, index) => (
-            <Reveal key={insight.slug} delay={index * 90}>
+            <Reveal key={insight.slug} delay={index * 90} className="h-full">
               <InsightCard insight={insight} />
             </Reveal>
           ))}
