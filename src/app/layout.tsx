@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AIAssistantWidget } from "@/components/ai/AIAssistantWidget";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { getNavigation, getSiteConfig } from "@/lib/cms";
@@ -42,9 +43,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        <Navbar navigation={navigation} siteName={site.shortName} bookingHref="/#schedule-consultation" />
-        <main>{children}</main>
-        <AIAssistantWidget fixed />
+        <AuthProvider>
+          <Navbar navigation={navigation} siteName={site.shortName} bookingHref="/#schedule-consultation" />
+          <main>{children}</main>
+          <AIAssistantWidget fixed />
+        </AuthProvider>
         <Footer navigation={navigation} site={site} />
       </body>
     </html>

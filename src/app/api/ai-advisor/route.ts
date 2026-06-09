@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { aiAdvisorSystemPrompt } from "@/content/ai/system-prompt";
 import { getFallbackResponse } from "@/lib/ai/fallbackResponses";
+import { enforceRateLimit } from "@/lib/security/rateLimit";
+import { aiAdvisorRequestSchema } from "@/lib/validation";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -19,9 +21,23 @@ function fallbackReply(question: string) {
 }
 
 export async function POST(request: Request) {
-  const body = (await request.json().catch(() => null)) as
-    | { messages?: ChatMessage[]; question?: string }
-    | null;
+  const limited = enforceRateLimit(request, "ai-advisor", {
+    limit: 12,
+    windowMs: 60_000
+  });
+
+  if (limited) {
+    return limited;
+  }
+
+  const rawBody = await request.json().catch(() => null);
+  const parsed = aiAdvisorRequestSchema.safeParse(rawBody);
+
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Please send a valid question." }, { status: 400 });
+  }
+
+  const body = parsed.data as { messages?: ChatMessage[]; question?: string };
 
   const question = body?.question || latestUserMessage(body?.messages || []);
 
