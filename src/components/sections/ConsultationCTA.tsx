@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { Reveal } from "@/components/Reveal";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 type ConsultationCTAProps = {
   content: {
@@ -141,10 +142,14 @@ function CompactConsultationCard({
 }
 
 function BookingCalendar() {
+  const { user, profile, loading } = useAuth();
   const [monthDate, setMonthDate] = useState(fallbackMonth);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState("");
+  const [notes, setNotes] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const calendarDays = useMemo(() => getCalendarDays(monthDate), [monthDate]);
   const monthTitle = useMemo(
@@ -170,17 +175,72 @@ function BookingCalendar() {
     setSelectedDate(null);
     setSelectedTime("");
     setConfirmed(false);
+    setError("");
   }
 
   function selectDate(day: Date) {
+    if (isPastDay(day)) {
+      return;
+    }
+
     setSelectedDate(day);
     setSelectedTime("");
     setConfirmed(false);
+    setError("");
   }
 
   function selectTime(time: string) {
     setSelectedTime(time);
     setConfirmed(false);
+    setError("");
+  }
+
+  async function requestConsultation() {
+    setError("");
+    setConfirmed(false);
+
+    if (!selectedDate || !selectedTime) {
+      setError("Choose a valid date and time before requesting a consultation.");
+      return;
+    }
+
+    if (isPastDay(selectedDate)) {
+      setError("Please choose a future date.");
+      return;
+    }
+
+    if (!user) {
+      setError("Please log in or register before requesting a consultation.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    const response = await fetch("/api/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        bookingDate: dateValue(selectedDate),
+        bookingTime: selectedTime,
+        notes
+      })
+    }).catch(() => null);
+
+    setSubmitting(false);
+
+    if (!response) {
+      setError("Could not reach the booking service. Please try again.");
+      return;
+    }
+
+    const data = (await response.json().catch(() => null)) as { error?: string } | null;
+
+    if (!response.ok) {
+      setError(data?.error || "Could not save your consultation request. Please try again.");
+      return;
+    }
+
+    setConfirmed(true);
   }
 
   return (
@@ -234,9 +294,12 @@ function BookingCalendar() {
                   type="button"
                   key={dateKey(day)}
                   onClick={() => selectDate(day)}
+                  disabled={isPastDay(day)}
                   className={`aspect-square rounded-lg border text-sm font-extrabold transition ${
                     selectedDate && sameDay(day, selectedDate)
                       ? "border-gold bg-gold text-navy shadow-sm"
+                      : isPastDay(day)
+                        ? "cursor-not-allowed border-slate-100 bg-slate-50 text-slate-300"
                       : "border-slate-200 bg-porcelain text-navy hover:border-gold/60 hover:bg-gold/10"
                   }`}
                 >
@@ -288,12 +351,28 @@ function BookingCalendar() {
                 ? `${selectedLabel} at ${selectedTime}`
                 : "Choose a date and available time slot."}
             </p>
+            {!loading && user ? (
+              <p className="mt-3 text-xs font-extrabold uppercase tracking-[0.16em] text-slate-600">
+                Booking as {profile?.full_name || user.email}
+              </p>
+            ) : null}
           </div>
+
+          <label className="grid gap-2 rounded-lg border border-slate-200 bg-white p-4 text-sm font-extrabold text-navy">
+            Notes <span className="font-semibold text-slate-500">(optional)</span>
+            <textarea
+              value={notes}
+              onChange={(event) => setNotes(event.target.value.slice(0, 1000))}
+              rows={3}
+              placeholder="PMO, AI governance, DORA readiness..."
+              className="resize-none rounded-lg border border-slate-300 bg-porcelain px-3 py-2.5 text-sm font-semibold text-navy outline-none transition placeholder:text-slate-400 focus:border-gold focus:ring-2 focus:ring-gold/20"
+            />
+          </label>
 
           <button
             type="button"
-            disabled={!selectedDate || !selectedTime}
-            onClick={() => setConfirmed(true)}
+            disabled={!selectedDate || !selectedTime || submitting}
+            onClick={() => void requestConsultation()}
             style={
               selectedDate && selectedTime
                 ? { backgroundColor: "#0F172A", borderColor: "#0F172A" }
@@ -302,12 +381,38 @@ function BookingCalendar() {
             className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-navy bg-navy px-5 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300"
           >
             <Icon name="CheckCircle2" className="h-4 w-4" />
-            Confirm Selection
+            {submitting ? "Saving request..." : "Request Consultation"}
           </button>
+
+          {!loading && !user ? (
+            <div className="rounded-lg border border-gold/35 bg-white px-4 py-3 text-sm font-bold leading-6 text-navy">
+              Log in or register to save your consultation request.
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Link
+                  href="/login?next=%2F%23schedule-consultation"
+                  className="rounded-lg border border-navy bg-navy px-3 py-2 text-xs font-extrabold text-white"
+                >
+                  Log in
+                </Link>
+                <Link
+                  href="/register?next=%2F%23schedule-consultation"
+                  className="rounded-lg border border-slate-300 bg-porcelain px-3 py-2 text-xs font-extrabold text-navy"
+                >
+                  Register
+                </Link>
+              </div>
+            </div>
+          ) : null}
+
+          {error ? (
+            <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold leading-6 text-red-800">
+              {error}
+            </p>
+          ) : null}
 
           {confirmed ? (
             <p className="rounded-lg border border-gold/35 bg-white px-4 py-3 text-sm font-bold leading-6 text-navy">
-              Your preferred time is noted. Please use the consultation link to complete the booking request.
+              Your consultation request was saved. Status: pending.
             </p>
           ) : null}
         </div>
@@ -335,6 +440,19 @@ function getCalendarDays(monthDate: Date) {
 
 function dateKey(date: Date) {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+}
+
+function dateValue(date: Date) {
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+function isPastDay(date: Date) {
+  const today = new Date();
+  const normalizedToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  return normalizedDate < normalizedToday;
 }
 
 function sameDay(a: Date, b: Date) {

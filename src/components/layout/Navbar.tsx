@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/Icon";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import type { NavItem } from "@/content/site";
 
@@ -17,6 +18,7 @@ export function Navbar({ navigation, siteName, bookingHref }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { user, profile, loading, logout } = useAuth();
   const closeTimer = useRef<number | null>(null);
   const previousBodyOverflow = useRef("");
   const previousHtmlOverflow = useRef("");
@@ -169,17 +171,52 @@ export function Navbar({ navigation, siteName, bookingHref }: NavbarProps) {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <Link
-              href={bookingHref}
-              className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-gold/60 ${
-                glass
-                  ? "border-white/40 bg-white text-navy hover:bg-gold"
-                  : "border-gold/55 bg-navy text-white hover:bg-slate-800"
-              }`}
-            >
-              <Icon name="Calendar" className="h-4 w-4" />
-              Book
-            </Link>
+            {!loading && user ? (
+              <>
+                <span
+                  className={`max-w-[180px] truncate rounded-lg border px-3 py-2 text-xs font-extrabold ${
+                    glass
+                      ? "border-white/25 bg-white/10 text-white"
+                      : "border-slate-200 bg-white text-navy"
+                  }`}
+                  title={profile?.full_name || user.email || "Account"}
+                >
+                  {profile?.full_name || user.email}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => void logout()}
+                  className={`rounded-lg border px-3 py-2 text-sm font-bold transition hover:-translate-y-0.5 ${
+                    glass
+                      ? "border-red-300/50 bg-red-500/15 text-red-100 hover:border-red-200 hover:bg-red-500/25 hover:text-white"
+                      : "border-red-200 bg-red-50 text-red-700 hover:border-red-300 hover:bg-red-100 hover:text-red-800"
+                  }`}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className={`rounded-lg px-3 py-2 text-sm font-bold transition ${
+                    glass ? "text-slate-200 hover:text-white" : "text-graphite hover:text-navy"
+                  }`}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className={`rounded-lg border px-3 py-2 text-sm font-bold transition hover:-translate-y-0.5 ${
+                    glass
+                      ? "border-white/35 bg-white/10 text-white hover:bg-white/15"
+                      : "border-gold/55 bg-white text-navy hover:border-gold"
+                  }`}
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
 
           <button

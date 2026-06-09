@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
+import { useAuth } from "@/components/auth/AuthProvider";
 import type { NavItem } from "@/content/site";
 
 type MobileMenuProps = {
@@ -15,6 +16,7 @@ type MobileMenuProps = {
 
 export function MobileMenu({ open, navigation, siteName, bookingHref, onClose }: MobileMenuProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const { user, profile, loading, logout } = useAuth();
 
   useEffect(() => {
     if (!open) {
@@ -119,10 +121,35 @@ export function MobileMenu({ open, navigation, siteName, bookingHref, onClose }:
               )
             )}
 
-            <Link href={bookingHref} onClick={onClose} className="mobile-menu-book">
-              <Icon name="Calendar" className="h-4 w-4" />
-              Book a Consultation
-            </Link>
+            <div className="mobile-menu-auth">
+              {!loading && user ? (
+                <>
+                  <div>
+                    <p className="mobile-menu-auth-label">Signed in</p>
+                    <p className="mobile-menu-auth-value">{profile?.full_name || user.email}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      void logout();
+                    }}
+                    className="mobile-menu-logout-button"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" onClick={onClose} className="mobile-menu-auth-link">
+                    Login
+                  </Link>
+                  <Link href="/register" onClick={onClose} className="mobile-menu-auth-button">
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </nav>
       </div>
