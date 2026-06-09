@@ -24,6 +24,15 @@ function getRegistrationErrorMessage(message?: string) {
   }
 
   if (
+    normalized.includes("confirmation") ||
+    normalized.includes("smtp") ||
+    normalized.includes("email provider") ||
+    normalized.includes("send")
+  ) {
+    return "Registration failed because the confirmation email could not be sent. Check Supabase email confirmation or SMTP settings.";
+  }
+
+  if (
     normalized.includes("rate") ||
     normalized.includes("too many") ||
     normalized.includes("only request") ||
@@ -75,6 +84,7 @@ export default function RegisterPage() {
       email: parsed.data.email,
       password: parsed.data.password,
       options: {
+        emailRedirectTo: `${window.location.origin}/login`,
         data: {
           full_name: parsed.data.fullName
         }

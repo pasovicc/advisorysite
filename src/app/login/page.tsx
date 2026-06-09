@@ -8,6 +8,24 @@ import { useAuth } from "@/components/auth/AuthProvider";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { loginSchema } from "@/lib/validation";
 
+function getLoginErrorMessage(message?: string) {
+  const normalized = (message || "").toLowerCase();
+
+  if (normalized.includes("email") && normalized.includes("confirm")) {
+    return "Please confirm your email before logging in.";
+  }
+
+  if (
+    normalized.includes("rate") ||
+    normalized.includes("too many") ||
+    normalized.includes("security purposes")
+  ) {
+    return "Too many login attempts. Please wait a moment and try again.";
+  }
+
+  return "Login failed. Check your email and password.";
+}
+
 export default function LoginPage() {
   const supabase = useMemo(() => createSupabaseBrowserClient(), []);
   const router = useRouter();
@@ -33,7 +51,7 @@ export default function LoginPage() {
     const { error: signInError } = await supabase.auth.signInWithPassword(parsed.data);
 
     if (signInError) {
-      setError("Login failed. Check your email and password.");
+      setError(getLoginErrorMessage(signInError.message));
       setLoading(false);
       return;
     }
