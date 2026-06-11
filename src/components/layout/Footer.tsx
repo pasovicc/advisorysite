@@ -27,8 +27,8 @@ export function Footer({ site }: FooterProps) {
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-8 rounded-lg border border-slate-200 bg-porcelain p-6 md:grid-cols-[1fr_0.9fr] md:items-center">
-          <p className="max-w-2xl text-sm leading-7 text-graphite">{site.description}</p>
+        <div className="mt-8 grid gap-8 rounded-lg border border-slate-200 bg-porcelain p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+          <p className="text-sm leading-7 text-graphite lg:whitespace-nowrap">{site.description}</p>
           <div className="grid gap-3 text-sm text-graphite md:justify-end">
             <span className="inline-flex items-center gap-2">
               <Icon name="MapPin" className="h-4 w-4 text-gold" />

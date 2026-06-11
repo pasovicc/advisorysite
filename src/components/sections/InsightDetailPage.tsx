@@ -112,14 +112,16 @@ export function InsightDetailPage({ page, insight }: InsightDetailPageProps) {
               Insights
             </Link>
             <div className="grid gap-10 lg:grid-cols-[0.64fr_0.36fr] lg:items-end">
-              <div>
+              <div className="lg:pr-16 xl:pr-20">
                 <p className="mb-5 text-xs font-bold uppercase tracking-[0.28em] text-gold">
                   {insight.category}
                 </p>
-                <h1 className="max-w-4xl font-display text-5xl leading-[0.98] text-navy md:text-6xl lg:text-7xl">
+                <h1 className="max-w-[700px] [overflow-wrap:anywhere] font-display text-5xl leading-[0.98] text-navy md:text-6xl lg:text-[4.1rem] xl:text-[4.9rem]">
                   {page.hero.title}
                 </h1>
-                <p className="mt-8 max-w-3xl text-xl leading-9 text-graphite">{profile.lead}</p>
+                <p className="mt-8 max-w-3xl text-xl leading-9 text-graphite lg:max-w-[560px] xl:max-w-[620px]">
+                  {profile.lead}
+                </p>
               </div>
               <div className="border-l border-gold/40 pl-6 lg:text-white">
                 <p className="text-xs font-bold uppercase tracking-[0.24em] text-gold">

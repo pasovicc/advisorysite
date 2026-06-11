@@ -44,7 +44,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className="font-sans antialiased">
         <AuthProvider>
-          <Navbar navigation={navigation} siteName={site.shortName} bookingHref="/#schedule-consultation" />
+          <Navbar navigation={navigation} siteName={site.shortName} bookingHref="/book" />
           <main>{children}</main>
           <AIAssistantWidget fixed />
         </AuthProvider>

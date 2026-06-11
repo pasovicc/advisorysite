@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AboutPage } from "@/components/sections/AboutPage";
 import { ConsultationCTA } from "@/components/sections/ConsultationCTA";
-import { ContactPage } from "@/components/sections/ContactPage";
 import { ContentPage } from "@/components/sections/ContentPage";
 import { IndustryDetailPage } from "@/components/sections/IndustryDetailPage";
 import { InsightDetailPage } from "@/components/sections/InsightDetailPage";
@@ -66,8 +65,6 @@ export default async function RoutePage({ params }: PageProps) {
         <AboutPage page={page} />
       ) : page.slug === "services" ? (
         <ServicesPage services={services} />
-      ) : page.slug === "contact" ? (
-        <ContactPage page={page} site={site} />
       ) : page.slug === "insights" ? (
         <InsightsPage page={page} insights={insights} />
       ) : page.slug === "industries" ? (
