@@ -1,4 +1,3 @@
-import { ConsultationCTA } from "@/components/sections/ConsultationCTA";
 import { FeaturedInsights } from "@/components/sections/FeaturedInsights";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { IndustrySection } from "@/components/sections/IndustrySection";
@@ -14,7 +13,6 @@ export default async function HomePage() {
       <IndustrySection industries={industries} />
       <WhyWorkWithMe items={home.whyWork} />
       <FeaturedInsights insights={insights} />
-      <ConsultationCTA content={home.consultation} />
     </>
   );
 }

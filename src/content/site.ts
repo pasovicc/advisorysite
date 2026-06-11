@@ -109,8 +109,7 @@ export const navigation: NavItem[] = [
     label: "Insights",
     href: "/insights"
   },
-  { label: "Book", href: "/#schedule-consultation" },
-  { label: "Contact", href: "/contact" }
+  { label: "Book", href: "/book" }
 ];
 
 export const homeContent = {
@@ -119,7 +118,7 @@ export const homeContent = {
     title: "AI, Digital Transformation & Project Leadership",
     subtitle:
       "Strategic advisory, governance and education services for banks, institutions and modern organizations.",
-    primaryCta: { label: "Book a Consultation", href: "/#schedule-consultation" },
+    primaryCta: { label: "Book a Consultation", href: "/book" },
     secondaryCta: { label: "Explore Services", href: "/services" },
     image: "/images/hero-ai-boardroom.png",
     imageAlt:
@@ -189,8 +188,7 @@ export const homeContent = {
     title: "Let’s discuss your organization’s transformation journey.",
     text:
       "Use the consultation session to clarify goals, risks, readiness and the next practical decision.",
-    primaryCta: { label: "Request Consultation", href: "/#schedule-consultation" },
-    secondaryCta: { label: "Contact", href: "/contact" }
+    primaryCta: { label: "Request Consultation", href: "/book" }
   }
 };
 
@@ -528,7 +526,7 @@ const industryPages: RoutePage[] = industries.map((industry) => ({
     title: "Build a governance and transformation approach that fits your context.",
     text:
       "Sector realities shape the operating model, risk profile and pace of change.",
-    primary: { label: "Book a Consultation", href: "/#schedule-consultation" }
+    primary: { label: "Book a Consultation", href: "/book" }
   }
 }));
 
@@ -756,44 +754,7 @@ export const routePages: RoutePage[] = [
       title: "Ready to schedule?",
       text:
         "Choose a focused consultation to discuss your goals, current risks and the practical next step.",
-      primary: { label: "Open Calendly", href: siteConfig.bookingUrl },
-      secondary: { label: "Contact First", href: "/contact" }
+      primary: { label: "Book a Consultation", href: "/book" }
     }
-  },
-  {
-    slug: "contact",
-    title: "Contact",
-    description: "Contact Executive Advisory.",
-    keywords: ["contact executive advisory", "executive advisory", "PM consulting Bosnia"],
-    hero: {
-      eyebrow: "Contact",
-      title: "For consulting, workshops, speaking and advisory inquiries.",
-      text:
-        "Share the type of support you need, your organization context and the timeline you have in mind."
-    },
-    sections: [
-      {
-        title: "Contact Details",
-        cards: [
-          {
-            title: "Email",
-            description: siteConfig.email,
-            href: `mailto:${siteConfig.email}`,
-            icon: "Mail"
-          },
-          {
-            title: "Location",
-            description: siteConfig.location,
-            icon: "Building2"
-          },
-          {
-            title: "Consultation",
-            description: "Schedule a focused advisory conversation.",
-            href: "/#schedule-consultation",
-            icon: "Calendar"
-          }
-        ]
-      }
-    ]
   }
 ];

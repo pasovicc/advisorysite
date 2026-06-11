@@ -127,7 +127,7 @@ function ServiceIntelligence({ services }: { services: Service[] }) {
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[0.44fr_0.56fr] lg:items-center">
           <Reveal delay={80}>
-            <div className="grid gap-7 sm:grid-cols-[220px_1fr] sm:items-center">
+            <div className="grid justify-items-center gap-7 sm:grid-cols-[220px_1fr] sm:items-center sm:justify-items-stretch">
               <PieChart areas={focusAreas} />
               <div className="grid gap-4">
                 {focusAreas.map((area) => (
