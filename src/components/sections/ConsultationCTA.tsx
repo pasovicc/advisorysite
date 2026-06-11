@@ -355,37 +355,37 @@ function BookingCalendar() {
             </label>
           </div>
 
-          <div className="grid items-stretch gap-4 lg:grid-cols-[1fr_auto]">
+          <div className="grid gap-3">
             <div className="rounded-lg border border-gold/[0.35] bg-gold/10 p-4">
-            <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-gold">
-              Selection
-            </p>
-            <p className="mt-2 text-sm font-bold leading-6 text-navy">
-              {selectedDate && selectedTime
-                ? `${selectedLabel} at ${selectedTime}`
-                : "Choose a date and available time slot."}
-            </p>
-            {!loading && user ? (
-              <p className="mt-3 text-xs font-extrabold uppercase tracking-[0.16em] text-slate-600">
-                Booking as {profile?.full_name || user.email}
+              <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-gold">
+                Selection
               </p>
-            ) : null}
-          </div>
+              <p className="mt-2 text-sm font-bold leading-6 text-navy">
+                {selectedDate && selectedTime
+                  ? `${selectedLabel} at ${selectedTime}`
+                  : "Choose a date and available time slot."}
+              </p>
+              {!loading && user ? (
+                <p className="mt-3 text-xs font-extrabold uppercase tracking-[0.16em] text-slate-600">
+                  Booking as {profile?.full_name || user.email}
+                </p>
+              ) : null}
+            </div>
 
-          <button
-            type="button"
-            disabled={!selectedDate || !selectedTime || submitting}
-            onClick={() => void requestConsultation()}
-            style={
-              selectedDate && selectedTime
-                ? { backgroundColor: "#0F172A", borderColor: "#0F172A" }
-                : undefined
-            }
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-navy bg-navy px-5 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300"
-          >
-            <Icon name="CheckCircle2" className="h-4 w-4" />
-            {submitting ? "Saving request..." : "Request Consultation"}
-          </button>
+            <button
+              type="button"
+              disabled={!selectedDate || !selectedTime || submitting}
+              onClick={() => void requestConsultation()}
+              style={
+                selectedDate && selectedTime
+                  ? { backgroundColor: "#0F172A", borderColor: "#0F172A" }
+                  : undefined
+              }
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-navy bg-navy px-5 py-4 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-300"
+            >
+              <Icon name="CheckCircle2" className="h-4 w-4" />
+              {submitting ? "Saving request..." : "Request Consultation"}
+            </button>
           </div>
 
           {error ? (
