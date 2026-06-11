@@ -90,22 +90,22 @@ export function ContactPage({ page, site }: ContactPageProps) {
                 Start with the simplest route.
               </h2>
               <div className="mt-8 grid gap-5">
-                <a
-                  href={`mailto:${site.email}`}
+                <Link
+                  href="/#schedule-consultation"
                   className="group flex items-center gap-4 rounded-lg border border-slate-200 bg-white p-4 transition hover:border-gold/60 hover:shadow-card"
                 >
                   <span className="grid h-11 w-11 place-items-center rounded-lg border border-gold/30 bg-gold/10 text-navy">
-                    <Icon name="Mail" className="h-5 w-5" />
+                    <Icon name="Calendar" className="h-5 w-5" />
                   </span>
                   <span>
                     <span className="block text-xs font-extrabold uppercase tracking-[0.18em] text-slate-500">
-                      Email
+                      Consultation
                     </span>
                     <span className="mt-1 block text-sm font-extrabold text-navy group-hover:text-gold">
-                      {site.email}
+                      Book a focused advisory conversation
                     </span>
                   </span>
-                </a>
+                </Link>
                 <div className="flex items-center gap-4 rounded-lg border border-slate-200 bg-white p-4">
                   <span className="grid h-11 w-11 place-items-center rounded-lg border border-gold/30 bg-gold/10 text-navy">
                     <Icon name="MapPin" className="h-5 w-5" />

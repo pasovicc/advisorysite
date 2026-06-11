@@ -45,8 +45,8 @@ export function IndustriesPage({ page, industries }: IndustriesPageProps) {
       <section className="bg-white py-16 lg:py-24">
         <div className="container-shell">
           <Reveal>
-            <div className="grid gap-10 lg:grid-cols-[0.34fr_0.66fr]">
-              <div>
+            <div className="grid gap-8 border-b border-slate-200 pb-9 lg:grid-cols-[0.42fr_0.58fr] lg:items-end">
+              <div className="max-w-2xl">
                 <p className="mb-5 text-xs font-bold uppercase tracking-[0.28em] text-gold">
                   Sector Map
                 </p>
@@ -54,49 +54,57 @@ export function IndustriesPage({ page, industries }: IndustriesPageProps) {
                   Choose the environment closest to your work.
                 </h2>
               </div>
-              <div className="relative min-h-[360px] border-l border-slate-200 pl-6 lg:pl-10">
-                <div className="absolute left-0 top-2 h-3 w-3 -translate-x-1/2 rounded-full bg-gold" />
-                <div className="absolute bottom-2 left-0 h-3 w-3 -translate-x-1/2 rounded-full border border-gold bg-white" />
-                <p className="max-w-2xl text-lg leading-8 text-graphite">
+              <div className="grid gap-5 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+                <p className="text-lg leading-8 text-graphite">
                   Industry context changes how governance is explained, who needs evidence and how
                   transformation decisions are sequenced.
                 </p>
-                <div className="mt-10 grid gap-5 md:grid-cols-2">
-                  {industries.map((industry, index) => (
-                    <Reveal
-                      key={industry.slug}
-                      delay={index * 60}
-                      className={index === 0 ? "md:col-span-2" : ""}
-                    >
-                      <Link
-                        href={`/industries/${industry.slug}`}
-                        className="group flex h-full min-h-[230px] flex-col rounded-lg border border-slate-200 bg-[#f6f8fa] p-6 transition duration-300 hover:-translate-y-1 hover:border-gold/60 hover:bg-white hover:shadow-card"
-                      >
-                        <div className="mb-8 flex items-center justify-between">
-                          <span className="grid h-11 w-11 place-items-center rounded-lg border border-gold/30 bg-white text-navy transition group-hover:border-gold/70 group-hover:text-gold">
-                            <Icon name={industry.icon} className="h-5 w-5" />
-                          </span>
-                          <Icon
-                            name="ArrowRight"
-                            className="h-5 w-5 text-slate-400 transition group-hover:translate-x-1 group-hover:text-gold"
-                          />
-                        </div>
-                        <h3 className="max-w-md font-display text-3xl leading-[1.04] text-navy">
-                          {industry.title}
-                        </h3>
-                        <p className="mt-5 max-w-xl text-base font-medium leading-8 text-graphite">
-                          {industry.description}
-                        </p>
-                        <span className="mt-auto pt-8 text-sm font-extrabold text-navy transition group-hover:text-gold">
-                          Learn More
-                        </span>
-                      </Link>
-                    </Reveal>
+                <div className="grid grid-cols-2 gap-3 text-xs font-extrabold uppercase tracking-[0.16em] text-navy sm:grid-cols-3 lg:grid-cols-2">
+                  {["Regulated", "Public", "Software", "Utilities"].map((item) => (
+                    <span key={item} className="border-t border-gold/50 pt-3">
+                      {item}
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
           </Reveal>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-6">
+            {industries.map((industry, index) => (
+              <Reveal
+                key={industry.slug}
+                delay={index * 60}
+                className={`h-full ${
+                  index === 0 ? "xl:col-span-3" : index === 1 ? "xl:col-span-3" : "xl:col-span-2"
+                }`}
+              >
+                <Link
+                  href={`/industries/${industry.slug}`}
+                  className="group flex h-full min-h-[250px] flex-col rounded-lg border border-slate-200 bg-[#f6f8fa] p-6 transition duration-300 hover:-translate-y-1 hover:border-gold/60 hover:bg-white hover:shadow-card"
+                >
+                  <div className="mb-7 flex items-center justify-between">
+                    <span className="grid h-11 w-11 place-items-center rounded-lg border border-gold/30 bg-white text-navy transition group-hover:border-gold/70 group-hover:text-gold">
+                      <Icon name={industry.icon} className="h-5 w-5" />
+                    </span>
+                    <Icon
+                      name="ArrowRight"
+                      className="h-5 w-5 text-slate-400 transition group-hover:translate-x-1 group-hover:text-gold"
+                    />
+                  </div>
+                  <h3 className="max-w-md font-display text-3xl leading-[1.04] text-navy">
+                    {industry.title}
+                  </h3>
+                  <p className="mt-5 max-w-xl text-base font-medium leading-8 text-graphite">
+                    {industry.description}
+                  </p>
+                  <span className="mt-auto pt-8 text-sm font-extrabold text-navy transition group-hover:text-gold">
+                    Learn More
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type MouseEvent, type TouchEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
@@ -109,11 +109,72 @@ const frameworkPages = [
 
 function ExecutiveFrameworkPages() {
   const [activePage, setActivePage] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const swipeLocked = useRef(false);
   const leftPage = (activePage + frameworkPages.length - 1) % frameworkPages.length;
   const rightPage = (activePage + 1) % frameworkPages.length;
 
+  const showPrevious = () => {
+    setActivePage((current) => (current + frameworkPages.length - 1) % frameworkPages.length);
+  };
+
+  const showNext = () => {
+    setActivePage((current) => (current + 1) % frameworkPages.length);
+  };
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+
+    touchStartX.current = touch.clientX;
+    touchStartY.current = touch.clientY;
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null || touchStartY.current === null) {
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const distanceX = touch.clientX - touchStartX.current;
+    const distanceY = touch.clientY - touchStartY.current;
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    if (Math.abs(distanceX) < 48 || Math.abs(distanceX) < Math.abs(distanceY) * 1.25) {
+      return;
+    }
+
+    swipeLocked.current = true;
+
+    if (distanceX < 0) {
+      showNext();
+    } else {
+      showPrevious();
+    }
+
+    window.setTimeout(() => {
+      swipeLocked.current = false;
+    }, 250);
+  };
+
+  const stopClickAfterSwipe = (event: MouseEvent<HTMLDivElement>) => {
+    if (!swipeLocked.current) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   return (
-    <div className="framework-stage relative mx-auto h-[250px] w-full max-w-[380px] justify-self-center sm:h-[350px] sm:max-w-[600px] lg:h-[560px] lg:max-w-[620px] lg:justify-self-end">
+    <div
+      className="framework-stage relative mx-auto h-[250px] w-full max-w-[380px] justify-self-center sm:h-[350px] sm:max-w-[600px] lg:h-[560px] lg:max-w-[620px] lg:justify-self-end"
+      onClickCapture={stopClickAfterSwipe}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="framework-aura absolute -inset-8 rounded-full" />
       <div className="framework-lightline absolute bottom-5 left-8 right-6 h-px" />
       <div className="framework-particle framework-particle-one" />
@@ -134,13 +195,13 @@ function ExecutiveFrameworkPages() {
         type="button"
         aria-label={`Show ${frameworkPages[leftPage].title}`}
         className="framework-hit-zone framework-hit-zone-left"
-        onClick={() => setActivePage(leftPage)}
+        onClick={showPrevious}
       />
       <button
         type="button"
         aria-label={`Show ${frameworkPages[rightPage].title}`}
         className="framework-hit-zone framework-hit-zone-right"
-        onClick={() => setActivePage(rightPage)}
+        onClick={showNext}
       />
     </div>
   );

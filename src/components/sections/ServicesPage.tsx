@@ -63,21 +63,29 @@ function ServiceIndex({ services }: { services: Service[] }) {
           </div>
         </Reveal>
 
-        <div className="mt-4 divide-y divide-slate-200">
+        <div className="mt-4 grid gap-2">
           {services.map((service, index) => (
             <Reveal key={service.slug} delay={index * 55}>
-              <article className="grid gap-6 py-9 transition hover:pl-2 md:grid-cols-[0.12fr_0.28fr_0.38fr_0.22fr] md:items-start">
-                <div className="flex items-center gap-3 text-gold">
-                  <Icon name={service.icon} className="h-5 w-5" />
-                  <span className="h-px w-10 bg-gold/70" />
+              <article className="service-index-row group relative grid gap-6 border-t border-slate-200 py-9 md:grid-cols-[0.12fr_0.28fr_0.38fr_0.22fr] md:items-start">
+                <div className="service-index-marker flex items-center gap-3 text-gold">
+                  <span className="service-index-icon grid h-9 w-9 place-items-center rounded-lg border border-gold/20 bg-white">
+                    <Icon name={service.icon} className="h-4 w-4" />
+                  </span>
+                  <span className="service-index-line h-px w-10 bg-gold/70" />
                 </div>
-                <h3 className="font-display text-3xl leading-[1.04] text-navy md:text-4xl">
+                <h3 className="service-index-title font-display text-3xl leading-[1.04] text-navy md:text-4xl">
                   {service.title}
                 </h3>
-                <p className="text-base leading-8 text-graphite">{service.longDescription}</p>
+                <p className="service-index-copy text-base leading-8 text-graphite">
+                  {service.longDescription}
+                </p>
                 <div className="grid gap-2">
-                  {service.engagements.map((item) => (
-                    <p key={item} className="text-sm font-extrabold leading-6 text-navy">
+                  {service.engagements.map((item, itemIndex) => (
+                    <p
+                      key={item}
+                      className="service-index-engagement text-sm font-extrabold leading-6 text-navy"
+                      style={{ transitionDelay: `${itemIndex * 34}ms` }}
+                    >
                       <span className="mr-2 text-gold">/</span>
                       {item}
                     </p>
@@ -214,16 +222,17 @@ function RadarChart() {
   const inner = "150,76 204,106 190,176 150,206 102,178 92,108";
 
   return (
-    <svg aria-hidden="true" viewBox="0 0 300 276" className="mx-auto h-auto w-full max-w-[520px]">
+    <svg aria-hidden="true" viewBox="-24 0 348 276" className="service-radar mx-auto h-auto w-full max-w-[560px]">
       {[0, 1, 2].map((level) => (
         <polygon
           key={level}
+          className="service-radar-grid"
           points={level === 0 ? "150,52 226,96 206,186 150,228 88,188 76,98" : level === 1 ? inner : "150,112 174,126 170,158 150,174 128,158 124,128"}
           fill="none"
           stroke="rgba(255,255,255,0.12)"
         />
       ))}
-      <polygon points={points} fill="rgba(200,169,107,0.18)" stroke="#C8A96B" strokeWidth="2" />
+      <polygon className="service-radar-field" points={points} fill="rgba(200,169,107,0.18)" stroke="#C8A96B" strokeWidth="2" />
       {[
         ["Strategy", 150, 16],
         ["Risk", 265, 78],
