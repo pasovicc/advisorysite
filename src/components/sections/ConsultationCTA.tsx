@@ -259,8 +259,8 @@ function BookingCalendar() {
         </div>
       </div>
 
-      <div className="mt-5 grid gap-4 xl:grid-cols-[0.95fr_0.82fr_0.88fr]">
-        <div className="rounded-lg border border-slate-200 bg-white p-4">
+      <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(260px,0.95fr)_minmax(360px,1.2fr)]">
+        <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
           <div className="flex items-center justify-between">
             <button
               type="button"
@@ -312,13 +312,14 @@ function BookingCalendar() {
           </div>
         </div>
 
-        <div className="grid content-start gap-4">
-          <div className="rounded-lg border border-slate-200 bg-white p-4">
+        <div className="grid gap-4">
+          <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-gold">
               Available Times
             </p>
             <p className="mt-2 text-sm font-bold text-navy">{selectedLabel}</p>
-            <div className="mt-4 grid grid-cols-2 gap-2">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2">
               {timeSlots.map((time) => (
                 <button
                   type="button"
@@ -342,7 +343,20 @@ function BookingCalendar() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-gold/[0.35] bg-gold/10 p-4">
+            <label className="grid gap-2 rounded-lg border border-slate-200 bg-white p-4 text-sm font-extrabold text-navy shadow-sm">
+              Notes <span className="font-semibold text-slate-500">(optional)</span>
+              <textarea
+                value={notes}
+                onChange={(event) => setNotes(event.target.value.slice(0, 1000))}
+                rows={5}
+                placeholder="PMO, AI governance, DORA readiness..."
+                className="min-h-[150px] resize-none rounded-lg border border-slate-300 bg-porcelain px-3 py-2.5 text-sm font-semibold text-navy outline-none transition placeholder:text-slate-400 focus:border-gold focus:ring-2 focus:ring-gold/20"
+              />
+            </label>
+          </div>
+
+          <div className="grid items-stretch gap-4 lg:grid-cols-[1fr_auto]">
+            <div className="rounded-lg border border-gold/[0.35] bg-gold/10 p-4">
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-gold">
               Selection
             </p>
@@ -357,19 +371,6 @@ function BookingCalendar() {
               </p>
             ) : null}
           </div>
-        </div>
-
-        <div className="grid content-start gap-4">
-          <label className="grid gap-2 rounded-lg border border-slate-200 bg-white p-4 text-sm font-extrabold text-navy">
-            Notes <span className="font-semibold text-slate-500">(optional)</span>
-            <textarea
-              value={notes}
-              onChange={(event) => setNotes(event.target.value.slice(0, 1000))}
-              rows={4}
-              placeholder="PMO, AI governance, DORA readiness..."
-              className="resize-none rounded-lg border border-slate-300 bg-porcelain px-3 py-2.5 text-sm font-semibold text-navy outline-none transition placeholder:text-slate-400 focus:border-gold focus:ring-2 focus:ring-gold/20"
-            />
-          </label>
 
           <button
             type="button"
@@ -385,26 +386,7 @@ function BookingCalendar() {
             <Icon name="CheckCircle2" className="h-4 w-4" />
             {submitting ? "Saving request..." : "Request Consultation"}
           </button>
-
-          {!loading && !user ? (
-            <div className="rounded-lg border border-gold/35 bg-white px-4 py-3 text-sm font-bold leading-6 text-navy">
-              Log in or register to save your consultation request.
-              <div className="mt-3 flex flex-wrap gap-2">
-                <Link
-                  href="/login?next=%2F%23schedule-consultation"
-                  className="rounded-lg border border-navy bg-navy px-3 py-2 text-xs font-extrabold text-white"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/register?next=%2F%23schedule-consultation"
-                  className="rounded-lg border border-slate-300 bg-porcelain px-3 py-2 text-xs font-extrabold text-navy"
-                >
-                  Register
-                </Link>
-              </div>
-            </div>
-          ) : null}
+          </div>
 
           {error ? (
             <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold leading-6 text-red-800">
