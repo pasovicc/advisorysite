@@ -73,7 +73,7 @@ export default function LoginPage() {
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-gold">Welcome Back</p>
           <h1 className="mt-5 font-display text-5xl leading-[1.02]">Log in to continue.</h1>
           <p className="mt-5 max-w-md text-base font-medium leading-8 text-slate-200">
-            Access your consultation booking flow with a secure Supabase session.
+            Sign in to manage your consultations and access personalized advisory services.
           </p>
         </div>
 

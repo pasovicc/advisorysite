@@ -125,7 +125,7 @@ export default function RegisterPage() {
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-gold">Create Account</p>
           <h1 className="mt-5 font-display text-5xl leading-[1.02]">Start with a secure account.</h1>
           <p className="mt-5 max-w-md text-base font-medium leading-8 text-slate-200">
-            Accounts are protected by Supabase Authentication and server-side booking checks.
+           Create your account to access consultations, personalized recommendations, and future advisory resources.
           </p>
         </div>
 
