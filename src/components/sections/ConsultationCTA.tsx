@@ -51,17 +51,17 @@ export function ConsultationCTA({ content, compact = false }: ConsultationCTAPro
           <div className="absolute right-0 top-0 hidden h-full w-2/5 opacity-70 lg:block">
             <div className="hero-boardroom-motion h-full w-full" />
           </div>
-          <div className="relative grid gap-10 p-7 md:p-10 lg:grid-cols-[1fr_0.92fr] lg:p-12">
-            <div className="max-w-2xl">
+          <div className="relative grid gap-7 p-6 md:p-8 lg:grid-cols-[0.44fr_0.56fr] lg:items-start lg:p-10">
+            <div className="max-w-xl lg:sticky lg:top-28">
               <p className="mb-4 text-xs font-bold uppercase tracking-[0.24em] text-gold">
                 {content.eyebrow || "Schedule Consultation"}
               </p>
-              <h2 className="font-display text-4xl leading-[1.05] text-navy md:text-5xl">
+              <h2 className="font-display text-4xl leading-[1.05] text-navy md:text-5xl lg:text-[3.35rem]">
                 {content.title}
               </h2>
               <p className="mt-5 text-base font-medium leading-8 text-slate-700">{content.text}</p>
 
-              <div className="mt-8 grid gap-3">
+              <div className="mt-7 grid gap-3 rounded-lg border border-slate-200 bg-porcelain p-5">
                 {benefits.map((benefit) => (
                   <div key={benefit} className="flex gap-3">
                     <Icon name="CheckCircle2" className="mt-1 h-4 w-4 shrink-0 text-gold" />
@@ -71,7 +71,7 @@ export function ConsultationCTA({ content, compact = false }: ConsultationCTAPro
               </div>
 
               {secondary ? (
-                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                   <Link
                     href={secondary.href}
                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-extrabold text-navy transition hover:-translate-y-0.5 hover:border-gold/70"
@@ -245,8 +245,8 @@ function BookingCalendar() {
 
   return (
     <div className="relative rounded-lg border border-slate-200 bg-porcelain p-4 shadow-card lg:border-white/[0.15] lg:bg-white/[0.95] md:p-5">
-      <div className="flex items-start gap-4 border-b border-slate-200 pb-5">
-        <div className="grid h-12 w-12 place-items-center rounded-lg bg-navy text-gold">
+      <div className="flex items-center gap-4 border-b border-slate-200 pb-4">
+        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-navy text-gold">
           <Icon name="Calendar" className="h-5 w-5" />
         </div>
         <div>
@@ -259,7 +259,7 @@ function BookingCalendar() {
         </div>
       </div>
 
-      <div className="mt-5 grid gap-5 xl:grid-cols-[0.9fr_1fr]">
+      <div className="mt-5 grid gap-4 xl:grid-cols-[0.95fr_0.82fr_0.88fr]">
         <div className="rounded-lg border border-slate-200 bg-white p-4">
           <div className="flex items-center justify-between">
             <button
@@ -312,7 +312,7 @@ function BookingCalendar() {
           </div>
         </div>
 
-        <div className="grid gap-4">
+        <div className="grid content-start gap-4">
           <div className="rounded-lg border border-slate-200 bg-white p-4">
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-gold">
               Available Times
@@ -357,13 +357,15 @@ function BookingCalendar() {
               </p>
             ) : null}
           </div>
+        </div>
 
+        <div className="grid content-start gap-4">
           <label className="grid gap-2 rounded-lg border border-slate-200 bg-white p-4 text-sm font-extrabold text-navy">
             Notes <span className="font-semibold text-slate-500">(optional)</span>
             <textarea
               value={notes}
               onChange={(event) => setNotes(event.target.value.slice(0, 1000))}
-              rows={3}
+              rows={4}
               placeholder="PMO, AI governance, DORA readiness..."
               className="resize-none rounded-lg border border-slate-300 bg-porcelain px-3 py-2.5 text-sm font-semibold text-navy outline-none transition placeholder:text-slate-400 focus:border-gold focus:ring-2 focus:ring-gold/20"
             />

@@ -550,6 +550,7 @@ button {
 .framework-stage {
   perspective: 1200px;
   transform-style: preserve-3d;
+  touch-action: pan-y;
 }
 
 .framework-aura {
@@ -707,6 +708,142 @@ button {
   animation-delay: 3.1s;
   bottom: 13%;
   right: 3%;
+}
+
+.service-radar {
+  overflow: visible;
+}
+
+.service-radar-grid {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: serviceRadarGrid 7s ease-in-out infinite alternate;
+}
+
+.service-radar-field {
+  filter: drop-shadow(0 0 18px rgba(200, 169, 107, 0.28));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: serviceRadarField 5.8s ease-in-out infinite alternate;
+}
+
+.service-index-row {
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 14px;
+  padding-inline: 0;
+  transition:
+    border-color 520ms ease,
+    box-shadow 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    padding-inline 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-index-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(110deg, rgba(200, 169, 107, 0.14), transparent 34%),
+    radial-gradient(circle at 18% 42%, rgba(200, 169, 107, 0.16), transparent 26%),
+    #ffffff;
+  opacity: 0;
+  transform: scaleX(0.985);
+  transform-origin: left center;
+  transition:
+    opacity 520ms ease,
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-index-row::after {
+  content: "";
+  position: absolute;
+  inset-block: 10px;
+  left: -18%;
+  z-index: -1;
+  width: 36%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  opacity: 0;
+  transform: translateX(-18%);
+  transition:
+    opacity 360ms ease,
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-index-row:hover {
+  border-color: rgba(200, 169, 107, 0.46);
+  box-shadow:
+    0 24px 70px rgba(15, 23, 42, 0.1),
+    inset 0 0 0 1px rgba(200, 169, 107, 0.18);
+  padding-inline: 1.25rem;
+  transform: translate3d(0, -5px, 0);
+}
+
+.service-index-row:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.service-index-row:hover::after {
+  opacity: 0.75;
+  transform: translateX(345%);
+}
+
+.service-index-marker,
+.service-index-title,
+.service-index-copy,
+.service-index-engagement {
+  transition:
+    color 420ms ease,
+    opacity 420ms ease,
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-index-icon {
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+  transition:
+    background-color 420ms ease,
+    border-color 420ms ease,
+    box-shadow 520ms ease,
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-index-line {
+  transform-origin: left center;
+  transition:
+    opacity 420ms ease,
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-index-row:hover .service-index-icon {
+  border-color: rgba(200, 169, 107, 0.72);
+  background: rgba(200, 169, 107, 0.1);
+  box-shadow: 0 16px 36px rgba(200, 169, 107, 0.22);
+  transform: translate3d(4px, -3px, 0) rotate(-3deg);
+}
+
+.service-index-row:hover .service-index-line {
+  opacity: 1;
+  transform: scaleX(1.4);
+}
+
+.service-index-row:hover .service-index-title {
+  color: #0f172a;
+  transform: translate3d(6px, 0, 0);
+}
+
+.service-index-row:hover .service-index-copy {
+  color: #1f2937;
+  transform: translate3d(4px, 0, 0);
+}
+
+.service-index-row:hover .service-index-engagement {
+  color: #0f172a;
+  transform: translate3d(8px, 0, 0);
 }
 
 @media (min-width: 1024px) {
@@ -869,6 +1006,32 @@ button {
 
   50% {
     transform: translate3d(20%, calc(-45% + 12px), -22px) rotateX(1deg) rotateY(-12deg) rotateZ(1.6deg) scale(0.945);
+  }
+}
+
+@keyframes serviceRadarGrid {
+  from {
+    opacity: 0.72;
+    transform: scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.015);
+  }
+}
+
+@keyframes serviceRadarField {
+  from {
+    fill-opacity: 0.16;
+    stroke-opacity: 0.82;
+    transform: translate3d(0, 0, 0) scale(0.985);
+  }
+
+  to {
+    fill-opacity: 0.25;
+    stroke-opacity: 1;
+    transform: translate3d(0, -4px, 0) scale(1.018);
   }
 }
 
