@@ -331,7 +331,7 @@ function BookingCalendar() {
                       ? { backgroundColor: "#0F172A", borderColor: "#C8A96B", color: "#FFFFFF" }
                       : undefined
                   }
-                  className={`rounded-lg border px-3 py-3 text-sm font-extrabold transition disabled:cursor-not-allowed disabled:opacity-45 ${
+                  className={`flex min-h-14 items-center justify-center rounded-lg border px-3 py-3 text-center text-sm font-extrabold leading-none transition disabled:cursor-not-allowed disabled:opacity-45 ${
                     selectedTime === time
                       ? "border-gold bg-navy text-white"
                       : "border-slate-200 bg-porcelain text-navy hover:border-gold/60 hover:bg-white"
